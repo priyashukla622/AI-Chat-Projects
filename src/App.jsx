@@ -6,7 +6,7 @@ function App() {
     <div>
       <UiPage />
     </div>
-  );
+  )
 }
 
 export default App;
