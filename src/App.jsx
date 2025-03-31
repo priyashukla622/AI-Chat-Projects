@@ -1,8 +1,12 @@
-function App(){
+import React from "react";
+import UiPage from "./Components/UiPage";
+
+function App() {
   return (
     <div>
-      <hi>hello</hi>
+      <UiPage />
     </div>
   )
 }
+
 export default App;
