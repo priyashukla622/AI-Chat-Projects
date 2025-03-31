@@ -1,22 +1,32 @@
 import React from "react";
-import { FiSend, FiMic, FiMenu, FiUser } from "react-icons/fi";
-import "./UiPage.css";
+import { FiSend, FiMic, FiMenu,  FiUser,  FiActivity, FiSettings, FiHelpCircle } from "react-icons/fi";
+import { useState } from "react";
+import "./UiPage.css"; 
 
 function UiPage() {
+    const [collapsed, setCollapsed] = useState(false)
+
+    const toggleSidebar = () =>{
+      if (collapsed){
+        setCollapsed(false)
+      }
+      else{
+        setCollapsed(true)
+      }
+    }
+
+
   return (
     <div className="chat-container">
       {/* Sidebar */}
-      <aside className="sidebar">
-        <button className="menu-btn">
-            
+      <aside  className={`sidebar ${collapsed ? "collapsed" : ""}`}>
+        <button className="menu-btn" onClick={toggleSidebar}>
           <FiMenu />
         </button>
         <ul>
-          <li>Home</li>
-          <li>Privacy</li>
-          <li>Activity</li>
-          <li>Settings</li>
-          <li>Help</li>
+          <li><span><FiActivity  style={{marginRight:'20px'}}/></span> Activity</li>
+          <li><span><FiSettings style={{marginRight:'20px'}}/></span> Settings</li>
+          <li><span><FiHelpCircle style={{marginRight:'20px'}}/></span> Help</li>
         </ul>
       </aside>
 
@@ -42,8 +52,6 @@ function UiPage() {
                 </button>
             </div>
       </div>
-
-      
     </div>
 
   );
