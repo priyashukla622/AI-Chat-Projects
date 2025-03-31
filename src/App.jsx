@@ -4,6 +4,5 @@ function App(){
       <hi>hello</hi>
     </div>
   )
-  
 }
 export default App;
