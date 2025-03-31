@@ -1,10 +1,26 @@
-function App(){
+// import React from "react";
+// import Uipage from './Components/UiPage'
+// function App(){
+//   return (
+//     <>
+    
+//      <Uipage/>
+//     </>
+
+//   )
+  
+// }
+// export default App;
+
+import React from "react";
+import UiPage from "./Components/UiPage";
+
+function App() {
   return (
     <div>
-      <hi>hello</hi>
-      <h2>heelo priya ji</h2>
+      <UiPage />
     </div>
-  )
-  
+  );
 }
+
 export default App;
