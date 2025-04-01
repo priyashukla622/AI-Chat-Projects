@@ -1,8 +1,8 @@
+import About from "./Component/about";
 function App(){
   return (
     <div>
-      <hi>hello</hi>
-      <h2>heelo priya ji</h2>
+      <About/>
     </div>
   )
   
