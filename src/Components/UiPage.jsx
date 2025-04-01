@@ -8,6 +8,9 @@ function UiPage() {
     const [message, setMessage] = useState("");
     const [responses, setResponses] = useState([]);
 
+    const [showHelpOptions, setShowHelpOptions] = useState(false);
+    
+
     const toggleSidebar = () =>{
       if (collapsed){
         setCollapsed(false)
@@ -78,9 +81,28 @@ function UiPage() {
           <FiMenu />
         </button>
         <ul>
-          <li><span><FiActivity  style={{marginRight:'20px'}}/></span> Activity</li>
+          <li>
+            <a href="https://myactivity.google.com/product/gemini?utm_source=gemini" target="_blank" rel="noopener noreferrer" className="activity-link">
+              <FiActivity className="activity-icon" />Activity 
+            </a>
+          </li>
+
           <li><span><FiSettings style={{marginRight:'20px'}}/></span> Settings</li>
-          <li><span><FiHelpCircle style={{marginRight:'20px'}}/></span> Help</li>
+
+          <li className="help-menu" onClick={() => setShowHelpOptions(!showHelpOptions)}>
+            <span><FiHelpCircle style={{ marginRight: '20px' }} /></span> Help
+            {showHelpOptions && (
+              <ul className="help-options">
+                <li>
+                  <a href="https://gemini.google.com/updates?is_sa=1&is_sa=1&android-min-version=301356232&ios-min-version=322.0&campaign_id=bkws&utm_source=sem&utm_source=google&utm_medium=paid-media&utm_medium=cpc&utm_campaign=bkws&utm_campaign=2024enIN_gemfeb&pt=9008&mt=8&ct=p-growth-sem-bkws&gad_source=1&gclid=Cj0KCQjwna6_BhCbARIsALId2Z39OvbJBAcSMIwuFCL6tCeX3r9L0Fgc3HjI5VoRZJ3J_5frrAO-cogaAtlWEALw_wcB&gclsrc=aw.ds" target="_blank" rel="noopener noreferrer">Update</a>
+                </li>
+                <li>
+                  <a href="https://gemini.google.com/faq?is_sa=1&is_sa=1&android-min-version=301356232&ios-min-version=322.0&campaign_id=bkws&utm_source=sem&utm_source=google&utm_medium=paid-media&utm_medium=cpc&utm_campaign=bkws&utm_campaign=2024enIN_gemfeb&pt=9008&mt=8&ct=p-growth-sem-bkws&gad_source=1&gclid=Cj0KCQjwna6_BhCbARIsALId2Z39OvbJBAcSMIwuFCL6tCeX3r9L0Fgc3HjI5VoRZJ3J_5frrAO-cogaAtlWEALw_wcB&gclsrc=aw.ds" target="_blank" rel="noopener noreferrer">FAQ</a>
+                </li>
+              </ul>
+            )}
+          </li>
+
         </ul>
       </aside>
 
@@ -88,8 +110,9 @@ function UiPage() {
         <div className="chat-section">
             <header className="chat-header">
                 <h2>Gemini AI</h2>
-                <FiUser className="login-icon" />
+                <FiUser className="login-icon"  />
             </header>
+            
             <div className="welcome-part">
               <h1>Welcome to Gemini AI</h1>
               <p>How can I assist Today?</p>

@@ -8,8 +8,9 @@ import "./App.css";
 function App() {
   return (
     <>
-    <UiPage/>
+   
     <Router>
+    <UiPage/>
       <Routes>
         <Route path="/" element={<SignUp />} />
         <Route path="/login" element={<Login />} />

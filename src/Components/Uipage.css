@@ -51,7 +51,6 @@
 
 .sidebar ul li:hover {
   color: rgb(58, 58, 178);
-  background-color:rgb(220, 219, 219) ;
   border-radius: 20px;
   
 }
@@ -202,4 +201,62 @@
   height: 30px;
   background-color: #ddd9d9;
 
+}
+
+.activity-link {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+}
+
+.activity-icon {
+  margin-right: 20px;
+}
+
+.help-options {
+  position: absolute;
+  top: 35%; 
+  left: 15%; 
+  background: white;
+  border-radius: 5px;
+  min-width: 50px; 
+  max-width: 100px; 
+  height: 10%; 
+  display: none; 
+  z-index: 10;
+}
+
+
+
+.help-options li {
+  display: block;   
+  text-align: left;
+  list-style: none;
+  text-decoration: none;
+  padding: 10px;
+
+}
+.help-options li a{
+  text-decoration: none;
+  color:#2c3e50 ;
+}
+
+
+/* Ensure no gap between Update and FAQ */
+.help-options li:first-child {
+  margin-top: -5px;
+  margin-left: 25px;
+  
+}
+
+.help-options li:last-child {
+  margin-top: -45px; 
+  margin-left: 25px;
+
+}
+
+
+.help-menu .help-options {
+  display: block; 
 }
