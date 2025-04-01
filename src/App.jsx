@@ -3,10 +3,11 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Login from "./Components/LogIn";
 import SignUp from "./Components/SignUp";
 import "./App.css";
-
+import UiPage from "./Components/UiPage";
 function App() {
   return (
     <>
+    <UiPage/>
     <Router>
       <Routes>
         <Route path="/" element={<SignUp />} />
@@ -17,5 +18,4 @@ function App() {
   );
 
 }
-
 export default App;
