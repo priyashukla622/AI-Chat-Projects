@@ -1,12 +1,12 @@
-import React from "react";
-import UiPage from "./Components/UiPage";
 
-function App() {
+
+import About from "./Component/about";
+function App(){
   return (
     <div>
-      <UiPage />
+      <About/>
     </div>
   )
+  
 }
-
 export default App;
