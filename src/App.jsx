@@ -10,7 +10,7 @@ function App() {
   return (
     <>
     <Router>
-      <UiPage/>
+    <UiPage/>
       <Routes>
         <Route path="/" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
@@ -19,7 +19,11 @@ function App() {
     <ModeToggle/>
     </>
   );
-
 }
-
 export default App;
+
+
+
+
+
+
