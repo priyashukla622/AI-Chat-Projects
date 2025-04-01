@@ -7,8 +7,9 @@ import UiPage from "./Components/UiPage";
 function App() {
   return (
     <>
-    <UiPage/>
+    {/* <UiPage/> */}
     <Router>
+    <UiPage/>
       <Routes>
         <Route path="/" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
@@ -16,6 +17,11 @@ function App() {
     </Router>
     </>
   );
-
 }
 export default App;
+
+
+
+
+
+

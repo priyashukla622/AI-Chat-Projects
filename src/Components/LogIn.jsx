@@ -57,7 +57,6 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const userData = { email, password };
 
     try {
@@ -73,7 +72,6 @@ const Login = () => {
 
       if (response.ok) {
         localStorage.setItem("token", data.token, "email", data.email);
-
         alert("Login Successful!");
         navigate("/dashboard"); 
       } else {
