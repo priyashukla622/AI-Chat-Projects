@@ -52,7 +52,6 @@ function UiPage() {
             </div>
       </div>
     </div>
-
   );
 }
 
