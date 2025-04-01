@@ -4,7 +4,7 @@ import Login from "./Components/LogIn";
 import SignUp from "./Components/SignUp";
 import ModeToggle from "./Components/ModeToggle";
 import UiPage from "./Components/UiPage";
-import "./App.css";
+
 
 function App() {
   return (

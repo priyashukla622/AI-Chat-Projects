@@ -1,21 +1,21 @@
-import React from "react";
+import React, {useState} from "react";
 import { FiSend, FiMic, FiMenu, FiUser, FiActivity, FiSettings, FiLogOut, FiHelpCircle, FiPlus } from "react-icons/fi";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // To navigate after logout
-import "./UiPage.css"; 
+import { useNavigate } from "react-router-dom"; 
+import  "./Uipage.css";
+
 
 function UiPage() {
     const [collapsed, setCollapsed] = useState(false);
     const [message, setMessage] = useState("");
     const [responses, setResponses] = useState([]);
-    const navigate = useNavigate();  // Initialize the useNavigate hook
+    const navigate = useNavigate();  
 
     const toggleSidebar = () => {
-      setCollapsed(!collapsed); // Toggle sidebar collapsed state
+      setCollapsed(!collapsed); 
     };
 
     const handleSend = () => {
-      if (!message.trim()) return; // Prevent sending empty messages
+      if (!message.trim()) return; 
 
       fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=YOUR_API_KEY", {
           method: "POST",
@@ -30,7 +30,7 @@ function UiPage() {
           const dataResponse = data.candidates?.[0]?.content?.parts?.[0]?.text || "No response from API";
           let typingText = "";
           let i = 0;
-          // Fix: Initialize empty response before typing starts
+          
           setResponses(prevResponses => [...prevResponses, { message, response: "" }]);
 
           const interval = setInterval(() => {
@@ -44,10 +44,10 @@ function UiPage() {
                   i++;
               }
               else {
-                  clearInterval(interval); // Stop interval when full text is displayed
+                  clearInterval(interval); 
               }
-          }, 200); // Adjust speed here
-          setMessage(""); // Clear input field
+          }, 200); 
+          setMessage(""); 
       })
       .catch(error => console.error("Error:", error));
     };
@@ -66,16 +66,16 @@ function UiPage() {
       ));
     };
 
-    // Logout function to clear token and navigate to login
+    
     const handleLogout = () => {
-      localStorage.removeItem("token"); // Remove token from localStorage
-      localStorage.removeItem("email"); // Remove email from localStorage
+      localStorage.removeItem("token"); 
+      localStorage.removeItem("email"); 
       alert("You have logged out successfully.");
-      navigate("/login"); // Navigate to login page after logout
+      navigate("/login");
     };
     return (
       <div className="chat-container">
-        {/* Sidebar */}
+     
         <aside className={`sidebar ${collapsed ? "collapsed" : ""}`}>
           <button className="menu-btn" onClick={toggleSidebar}>
             <FiMenu />
@@ -88,7 +88,7 @@ function UiPage() {
           </ul>
         </aside>
 
-        {/* Chat Section */}
+        
         <div className="chat-section">
           <header className="chat-header">
             <h2>Gemini AI</h2>
@@ -99,7 +99,7 @@ function UiPage() {
                   {renderResponses()}
             </div>
 
-            {/* Input Section */}
+            
             <div className="input-box">
               <div className="icon-container">
                 <FiMic className="mic-icon" />
