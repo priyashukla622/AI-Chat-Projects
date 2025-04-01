@@ -93,7 +93,6 @@ function UiPage() {
             <div className="chat-box">
                   {renderResponses()}
             </div>
-
             {/* Input Section */}
             <div className="input-box">
               <div className="icon-container">
