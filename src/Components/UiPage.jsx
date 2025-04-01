@@ -1,7 +1,6 @@
 import React from "react";
 import { FiSend, FiMic, FiMenu,  FiUser,  FiActivity, FiSettings, FiHelpCircle } from "react-icons/fi";
 import { useState } from "react";
-import "./UiPage.css"; 
 
 function UiPage() {
     const [collapsed, setCollapsed] = useState(false)
