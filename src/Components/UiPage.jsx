@@ -15,7 +15,6 @@ function UiPage() {
       }
     }
 
-
   return (
     <div className="chat-container">
       {/* Sidebar */}
@@ -53,7 +52,6 @@ function UiPage() {
             </div>
       </div>
     </div>
-
   );
 }
 
