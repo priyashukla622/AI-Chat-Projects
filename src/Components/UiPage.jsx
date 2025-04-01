@@ -49,7 +49,7 @@ function UiPage() {
                else {
                   clearInterval(interval); // Stop interval when full text is displayed
               }
-          },200); // Adjust speed here
+          },100); // Adjust speed here
           setMessage(""); // Clear input field
       })
       .catch(error => console.error("Error:", error));
@@ -71,6 +71,7 @@ function UiPage() {
 
   return (
     <div className="chat-container">
+
       {/* Sidebar */}
       <aside  className={`sidebar ${collapsed ? "collapsed" : ""}`}>
         <button className="menu-btn" onClick={toggleSidebar}>
@@ -89,6 +90,10 @@ function UiPage() {
                 <h2>Gemini AI</h2>
                 <FiUser className="login-icon" />
             </header>
+            <div className="welcome-part">
+              <h1>Welcome to Gemini AI</h1>
+              <p>How can I assist Today?</p>
+            </div>
 
             <div className="chat-box">
                   {renderResponses()}

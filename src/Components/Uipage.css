@@ -71,10 +71,30 @@
   padding: 15px;
   font-size: 20px;
 }
-  
+
 .login-icon {
   font-size: 24px;
   cursor: pointer;
+}
+
+.welcome-part{
+  padding: 20px;
+  text-align: center;
+  opacity: 0;
+  color: gray;
+  transform: translateX(-100%);
+  animation: slideIn 2s forwards;
+}
+
+.welcome-part p{
+  font-size: 20px;
+}
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .chat-box {
