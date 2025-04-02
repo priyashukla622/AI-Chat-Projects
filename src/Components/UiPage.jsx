@@ -9,6 +9,7 @@ function UiPage() {
     const [responses, setResponses] = useState([]);
     const navigate = useNavigate();  
     const [showHelpOptions, setShowHelpOptions] = useState(false);
+    const [isListening, setIsListening] = useState(false);
 
     const toggleSidebar = () =>{
       if (collapsed){
@@ -19,10 +20,39 @@ function UiPage() {
       }
     }
 
+    // mic
+    
+
+    const startListening = () => {
+      if (!("webkitSpeechRecognition" in window)) {
+        alert("Speech Recognition is not supported in this browser.");
+        return;
+      }
+    
+      const recognition = new window.webkitSpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = "en-US";
+    
+      recognition.onstart = () => setIsListening(true);
+      recognition.onend = () => setIsListening(false);
+    
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        setMessage(transcript); // Input box में text set करें
+      };
+    
+      recognition.start();
+    };
+    
+
+
+
+
     const handleSend = () => {
       if (!message.trim()) return; 
 
-      fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=YOUR_API_KEY", {
+      fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCHW1OXkJKoP7DeA9SyP17Qkua9Synvkfs", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -133,7 +163,8 @@ function UiPage() {
 
         <div className="input-box">
           <div className="icon-container">
-            <FiMic className="mic-icon" />
+            {/* <FiMic className="mic-icon"  onClick={handleVoiceInput} /> */}
+            <FiMic className="mic-icon" onClick={startListening} style={{ cursor: "pointer", marginLeft: "10px" }} />
             <label htmlFor="fileInput" >
               <FiPlus  style={{margin:'5px'}}/>
             </label>
