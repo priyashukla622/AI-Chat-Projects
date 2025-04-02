@@ -2,19 +2,22 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Login from "./Components/LogIn";
 import SignUp from "./Components/SignUp";
-import "./App.css";
+import ModeToggle from "./Components/ModeToggle";
 import UiPage from "./Components/UiPage";
+
+
 function App() {
   return (
     <>
-    {/* <UiPage/> */}
     <Router>
     <UiPage/>
       <Routes>
         <Route path="/" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/ModeToggle" element={<ModeToggle/>}/>
       </Routes>
     </Router>
+    {/* <ModeToggle/> */}
     </>
   );
 }
