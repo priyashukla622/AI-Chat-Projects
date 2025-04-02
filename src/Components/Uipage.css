@@ -51,7 +51,6 @@
 
 .sidebar ul li:hover {
   color: rgb(58, 58, 178);
-  background-color:rgb(220, 219, 219) ;
   border-radius: 20px;
   
 }
@@ -71,10 +70,30 @@
   padding: 15px;
   font-size: 20px;
 }
-  
+
 .login-icon {
   font-size: 24px;
   cursor: pointer;
+}
+
+.welcome-part{
+  padding: 20px;
+  text-align: center;
+  opacity: 0;
+  color: gray;
+  transform: translateX(-100%);
+  animation: slideIn 2s forwards;
+}
+
+.welcome-part p{
+  font-size: 20px;
+}
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .chat-box {
@@ -149,10 +168,10 @@
   background: #007bff;
   color: white;
   border: none;
-  padding: 13px;
+  padding: 6px;
   margin-right: 15px;
   border-radius: 5px;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
   cursor: pointer;
 }
 
@@ -177,4 +196,62 @@
   height: 30px;
   background-color: #ddd9d9;
 
+}
+
+.activity-link {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+}
+
+.activity-icon {
+  margin-right: 20px;
+}
+
+.help-options {
+  position: absolute;
+  top: 35%; 
+  left: 15%; 
+  background: white;
+  border-radius: 5px;
+  min-width: 50px; 
+  max-width: 100px; 
+  height: 10%; 
+  display: none; 
+  z-index: 10;
+}
+
+
+
+.help-options li {
+  display: block;   
+  text-align: left;
+  list-style: none;
+  text-decoration: none;
+  padding: 10px;
+
+}
+.help-options li a{
+  text-decoration: none;
+  color:#2c3e50 ;
+}
+
+
+/* Ensure no gap between Update and FAQ */
+.help-options li:first-child {
+  margin-top: -5px;
+  margin-left: 25px;
+  
+}
+
+.help-options li:last-child {
+  margin-top: -45px; 
+  margin-left: 25px;
+
+}
+
+
+.help-menu .help-options {
+  display: block; 
 }
