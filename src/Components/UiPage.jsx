@@ -1,10 +1,12 @@
+import React, { useState } from "react";
+
 import React, { useState, useEffect } from "react";
 import { FiSend, FiMic, FiMenu, FiUser, FiActivity, FiSettings, FiLogOut, FiHelpCircle, FiPlus } from "react-icons/fi";
 import { useNavigate } from "react-router-dom"; 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon } from "@fortawesome/free-regular-svg-icons";
 import { faToggleOn, faToggleOff } from "@fortawesome/free-solid-svg-icons";
-import "./Uipage.css"
+import "./Uipage.css";
 
 function UiPage() {
     const [collapsed, setCollapsed] = useState(false);
@@ -13,24 +15,33 @@ function UiPage() {
     const [darkMode, setDarkMode] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
     const [showHelpOptions, setShowHelpOptions] = useState(false);
-    const [userInitial, setUserInitial] = useState("");
-
-    const navigate = useNavigate();  
 
     const [isListening, setIsListening] = useState(false);
 
+    const navigate = useNavigate();  
+
+    // const toggleSidebar = () => setCollapsed(!collapsed);
     const toggleSidebar = () =>{
-      if (collapsed){
-        setCollapsed(false)
+       if (collapsed){
+         setCollapsed(false)
       }
-      else{
-        setCollapsed(true)
-      }
+        else{
+          setCollapsed(true)
+        }
     }
 
-    // mic
-    
+    const toggleMode = () => setDarkMode(!darkMode);
 
+  
+    const handleLogout = () => {
+        localStorage.removeItem("token"); 
+        localStorage.removeItem("email"); 
+        alert("You have logged out successfully.");
+        navigate("/login");
+    };
+
+    // mic
+  
     const startListening = () => {
       if (!("webkitSpeechRecognition" in window)) {
         alert("Speech Recognition is not supported in this browser.");
@@ -47,14 +58,21 @@ function UiPage() {
     
       recognition.onresult = (event) => {
         const transcript = event.results[0][0].transcript;
-        setMessage(transcript);
+        setMessage(transcript); // Show text in input field
+        
+        setTimeout(() => {
+          handleSend();  // Automatically send after capturing voice
+        }, 500); 
       };
     
       recognition.start();
     };
-   
+    
+
+    
+
     const handleSend = () => {
-      if (!message.trim()) return; 
+        if (!message.trim()) return; 
 
       fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCHW1OXkJKoP7DeA9SyP17Qkua9Synvkfs", {
           method: "POST",
@@ -91,80 +109,8 @@ function UiPage() {
       .catch(error => console.error("Error:", error));
     };
 
-    const renderResponses = () => {
-      return responses.map((chat, index) => (
-          <div key={index} className="chat-item">
-              <div className="chat-you">
-                  <p className="you"><strong>You:</strong> {chat.message}</p>
-              </div>
-  
-              <div className="chat-bot">
-                  <p className="bot"> <strong>Bot:</strong>{chat.response}</p>
-              </div>
-          </div>
-      ));
-    };
-    const navigate = useNavigate(); 
-
-    useEffect(() => {
-        const userEmail = localStorage.getItem("email");
-        console.log("Fetched Email:", userEmail); 
-        if (userEmail) {
-            setUserInitial(userEmail.charAt(0).toUpperCase());
-        }
-    }, []);
-    
-
-    const toggleSidebar = () => setCollapsed(!collapsed);
-    const toggleMode = () => setDarkMode(!darkMode);
-    
-    const handleLogout = () => {
-        localStorage.removeItem("token"); 
-        localStorage.removeItem("email"); 
-        alert("You have logged out successfully.");
-        navigate("/login");
-    };
-    const apiKey = import.meta.env.VITE_API_URL;
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-    const handleSend = () => {
-        if (!message.trim()) return; 
-        
-        fetch(apiUrl, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                contents: [{ parts: [{ text: message }] }]
-            }),
-        })
-        .then(res => res.json())
-        .then(data => {
-            console.log("API Response", data)
-            const dataResponse = data.candidates?.[0]?.content?.parts?.[0]?.text || "No response from API";
-            let typingText = "";
-            let i = 0;
-            setResponses(prevResponses => [...prevResponses, { message, response: "" }]);
-
-            const interval = setInterval(() => {
-                if (i < dataResponse.length) {
-                    typingText += dataResponse[i];
-                    setResponses(prevResponses => {
-                        const updatedResponses = [...prevResponses];
-                        updatedResponses[updatedResponses.length - 1] = { message, response: typingText };
-                        return updatedResponses;
-                    });
-                    i++;
-                } else {
-                    clearInterval(interval); 
-                }
-            }, 50);  
-
-            setMessage(""); 
-        })
-        .catch(error => console.error("Error:", error));
-    };
-
     return (
+    <>
         <div className={`chat-container ${darkMode ? "dark" : "light"}`}>
             <aside className={`sidebar ${collapsed ? "collapsed" : ""}`}>
                 <button className="menu-btn" onClick={toggleSidebar}>
@@ -174,12 +120,12 @@ function UiPage() {
                     <li><FiActivity style={{ marginRight: "20px" }} /> Activity</li>
                     <li onClick={() => setShowPopup(true)}><FiSettings style={{ marginRight: "20px" }} /> Settings</li>
                     <li className="help-menu" onClick={() => setShowHelpOptions(!showHelpOptions)}>
-                        <FiHelpCircle style={{ marginRight: "20px" }} /> Help
-                        {showHelpOptions && (
-                            <ul className="help-options">
-                                <li><a href="https://gemini.google.com/updates" target="_blank" rel="noopener noreferrer">Update</a></li>
-                                <li><a href="https://gemini.google.com/faq" target="_blank" rel="noopener noreferrer">FAQ</a></li>
-                            </ul>
+                      <FiHelpCircle style={{ marginRight: "20px" }} /> Help
+                      {showHelpOptions && (
+                        <ul className="help-options">
+                          <li><a href="https://gemini.google.com/updates" target="_blank" rel="noopener noreferrer">Update</a></li>
+                          <li><a href="https://gemini.google.com/faq" target="_blank" rel="noopener noreferrer">FAQ</a></li>
+                        </ul>
                         )}
                     </li>
                     <li onClick={handleLogout}><FiLogOut style={{ marginRight: "20px" }} /> Logout</li>
@@ -187,10 +133,17 @@ function UiPage() {
             </aside>
             
             <div className="chat-section">
-                <h2>Gemini AI</h2>
-                <div className="user-icon" onClick={() => navigate("/")}>
-                    {userInitial ? userInitial : <FiUser />}
-                </div>
+                <header className="chat-header">
+                    <h2>Gemini AI</h2>
+                    <FiUser className="login-icon" onClick={() => navigate("/")} />
+                </header>
+
+                {/* <div className="welcome-part">
+                  <h1>Welcome to Gemini AI</h1>
+                  <p>How can I assist Today?</p>
+                </div> */}
+
+
                 
                 <div className="chat-box">
                     {responses.map((chat, index) => (
@@ -204,6 +157,10 @@ function UiPage() {
                         </div>
                     ))}
                 </div>
+                
+                {/* <div className="input-box">
+                    <div className="icon-container">
+                    <FiMic className="mic-icon" onClick={startListening} style={{ cursor: "pointer", marginLeft: "10px" }} /> */}
 
                 <div className="input-box">
                     <div className="icon-container">
@@ -238,8 +195,12 @@ function UiPage() {
                 </div>
             </div>
         </div>
-    );
-}
+    </>
+  )
+   
+ }
+    
+  
 export default UiPage;
 
 

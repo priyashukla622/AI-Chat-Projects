@@ -34,6 +34,7 @@ const Login = () => {
       console.error(error);
       alert("Something went wrong. Please try again.");
     }
+
     setEmail("");
     setPassword("");
   };
