@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* margin-top: -360px; */
+  margin-top: 160px;
   justify-content: center;
   height: 40vh;
   /* background-color: #f3f3f3; */
@@ -12,7 +12,7 @@
   flex-direction: column;
   width: 350px;
   height: 380px;
-  margin-bottom: 1200px;
+  margin-bottom: 1350px;
   margin-left: 400px;
   gap: 15px;
   padding: 30px;
@@ -52,16 +52,21 @@ h2{
 .input:focus {
   border-color: black;
 }
- 
 .button {
   padding: 9px;
   font-size: 20px;
+  text-align: center;
   color: #fff;
   background-color: #007bff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  width: 350px; 
+  display: flex;
+  align-items: center;
+  justify-content: center; 
 }
+
 
 .button:hover {
   background-color:#3e97f6;
