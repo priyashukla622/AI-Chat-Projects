@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { FiSend, FiMic, FiMenu, FiUser, FiActivity, FiSettings, FiLogOut, FiHelpCircle, FiPlus } from "react-icons/fi";
 import { useNavigate } from "react-router-dom"; 
 import  "./Uipage.css";
@@ -81,9 +81,10 @@ function UiPage() {
       navigate("/login");
     };
 
+
   return (
 
-    <>
+  <>
     <div className="chat-container">
       {/* Sidebar */}
       <aside  className={`sidebar ${collapsed ? "collapsed" : ""}`}>
@@ -119,40 +120,38 @@ function UiPage() {
       </aside>
 
       <div className="chat-section">
-            <header className="chat-header">
-                <h2>Gemini AI</h2>
-                <FiUser className="login-icon"  onClick={()=>navigate("/")} />
-            </header>
+        <header className="chat-header">
+            <h2>Gemini AI</h2>
+            <FiUser className="login-icon"  onClick={()=>navigate("/")} />
+        </header>
             
-            <div className="welcome-part">
-              <h1>Welcome to Gemini AI</h1>
-              <p>How can I assist Today?</p>
-            </div>
-
-            <div className="chat-box">
-                  {renderResponses()}
-            </div>
-
-            
-            <div className="input-box">
-              <div className="icon-container">
-                <FiMic className="mic-icon" />
-                <label htmlFor="fileInput" >
-                      <FiPlus  style={{margin:'5px'}}/>
-                </label>
-              </div>
-
-              <input type="text" value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Type a message..." />
-              <button  onClick={handleSend}>
-                <FiSend />
-              </button>
-
-            <input type="file" id="fileInput" style={{ display: 'none' }} />
-          </div>
+        <div className="chat-box">
+          {renderResponses()}
         </div>
 
+        <div className="welcome-part">
+          <h1>Welcome to Gemini AI</h1>
+          <p>How can I assist Today?</p>
+        </div>
+
+        <div className="input-box">
+          <div className="icon-container">
+            <FiMic className="mic-icon" />
+            <label htmlFor="fileInput" >
+              <FiPlus  style={{margin:'5px'}}/>
+            </label>
+          </div>
+          <input type="text" value={message} onChange={(e) => setMessage(e.target.value)} onKeyDown={(e) => e.key === "Enter" && handleSend()}placeholder="Type a message..." />
+          <button  onClick={handleSend}>
+            <FiSend />
+          </button>
+
+          <input type="file" id="fileInput" style={{ display: 'none' }} /> 
+        </div>
       </div>
-      </>
+
+    </div>
+   </>
   )
    
  }
