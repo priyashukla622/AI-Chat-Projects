@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon } from "@fortawesome/free-regular-svg-icons";
 import { faToggleOn, faToggleOff } from "@fortawesome/free-solid-svg-icons";
-import "./Uipage.css";
+import "./Uipage.css"
 
 function UiPage() {
     const [collapsed, setCollapsed] = useState(false);
@@ -13,7 +13,99 @@ function UiPage() {
     const [darkMode, setDarkMode] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
     const [showHelpOptions, setShowHelpOptions] = useState(false);
-    const navigate = useNavigate();  
+
+    const [isListening, setIsListening] = useState(false);
+
+    const toggleSidebar = () =>{
+      if (collapsed){
+        setCollapsed(false)
+      }
+      else{
+        setCollapsed(true)
+      }
+    }
+
+    // mic
+    
+
+    const startListening = () => {
+      if (!("webkitSpeechRecognition" in window)) {
+        alert("Speech Recognition is not supported in this browser.");
+        return;
+      }
+    
+      const recognition = new window.webkitSpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = "en-US";
+    
+      recognition.onstart = () => setIsListening(true);
+      recognition.onend = () => setIsListening(false);
+    
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        setMessage(transcript); // Input box में text set करें
+      };
+    
+      recognition.start();
+    };
+    
+
+
+
+
+    const handleSend = () => {
+      if (!message.trim()) return; 
+
+      fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCHW1OXkJKoP7DeA9SyP17Qkua9Synvkfs", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+              contents: [{ parts: [{ text: message }] }]
+          }),
+      })
+      .then(res => res.json())
+      .then(data => {
+          console.log("API Response:", data);
+          const dataResponse = data.candidates?.[0]?.content?.parts?.[0]?.text || "No response from API";
+          let typingText = "";
+          let i = 0;
+          
+          setResponses(prevResponses => [...prevResponses, { message, response: "" }]);
+          const interval = setInterval(() => {
+              if (i < dataResponse.length) {
+                  typingText += dataResponse[i];
+                  setResponses(befResponses => {
+                      const updtResponses = [...befResponses];
+                      updtResponses[updtResponses.length - 1] = { message, response: typingText };
+                      return updtResponses;
+                  });
+                  i++;
+              }
+              else {
+                  clearInterval(interval); 
+              }
+
+          }, 200); 
+          setMessage(""); 
+      })
+      .catch(error => console.error("Error:", error));
+    };
+
+    const renderResponses = () => {
+      return responses.map((chat, index) => (
+          <div key={index} className="chat-item">
+              <div className="chat-you">
+                  <p className="you"><strong>You:</strong> {chat.message}</p>
+              </div>
+  
+              <div className="chat-bot">
+                  <p className="bot"> <strong>Bot:</strong>{chat.response}</p>
+              </div>
+          </div>
+      ));
+    };
+    const navigate = useNavigate(); 
 
     const toggleSidebar = () => setCollapsed(!collapsed);
     const toggleMode = () => setDarkMode(!darkMode);
@@ -133,7 +225,35 @@ function UiPage() {
                 </div>
             </div>
         </div>
-    );
-}
 
+        <div className="welcome-part">
+          <h1>Welcome to Gemini AI</h1>
+          <p>How can I assist Today?</p>
+        </div>
+
+        <div className="input-box">
+          <div className="icon-container">
+            {/* <FiMic className="mic-icon"  onClick={handleVoiceInput} /> */}
+            <FiMic className="mic-icon" onClick={startListening} style={{ cursor: "pointer", marginLeft: "10px" }} />
+            <label htmlFor="fileInput" >
+              <FiPlus  style={{margin:'5px'}}/>
+            </label>
+          </div>
+          <input type="text" value={message} onChange={(e) => setMessage(e.target.value)} onKeyDown={(e) => e.key === "Enter" && handleSend()}placeholder="Type a message..." />
+          <button  onClick={handleSend}>
+            <FiSend />
+          </button>
+
+          <input type="file" id="fileInput" style={{ display: 'none' }} /> 
+        </div>
+      </div>
+
+    </div>
+   </>
+  )
+   
+ }
+    
 export default UiPage;
+
+
