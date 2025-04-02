@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FiSend, FiMic, FiMenu, FiUser, FiActivity, FiSettings, FiLogOut, FiHelpCircle, FiPlus } from "react-icons/fi";
 import { useNavigate } from "react-router-dom"; 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,6 +13,9 @@ function UiPage() {
     const [darkMode, setDarkMode] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
     const [showHelpOptions, setShowHelpOptions] = useState(false);
+    const [userInitial, setUserInitial] = useState("");
+
+    const navigate = useNavigate();  
 
     const [isListening, setIsListening] = useState(false);
 
@@ -44,16 +47,12 @@ function UiPage() {
     
       recognition.onresult = (event) => {
         const transcript = event.results[0][0].transcript;
-        setMessage(transcript); // Input box में text set करें
+        setMessage(transcript);
       };
     
       recognition.start();
     };
-    
-
-
-
-
+   
     const handleSend = () => {
       if (!message.trim()) return; 
 
@@ -107,19 +106,31 @@ function UiPage() {
     };
     const navigate = useNavigate(); 
 
+    useEffect(() => {
+        const userEmail = localStorage.getItem("email");
+        console.log("Fetched Email:", userEmail); 
+        if (userEmail) {
+            setUserInitial(userEmail.charAt(0).toUpperCase());
+        }
+    }, []);
+    
+
     const toggleSidebar = () => setCollapsed(!collapsed);
     const toggleMode = () => setDarkMode(!darkMode);
+    
     const handleLogout = () => {
         localStorage.removeItem("token"); 
         localStorage.removeItem("email"); 
         alert("You have logged out successfully.");
         navigate("/login");
     };
+    const apiKey = import.meta.env.VITE_API_URL;
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
     const handleSend = () => {
         if (!message.trim()) return; 
-
-        fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=YOUR_API_KEY", {
+        
+        fetch(apiUrl, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -128,11 +139,12 @@ function UiPage() {
         })
         .then(res => res.json())
         .then(data => {
+            console.log("API Response", data)
             const dataResponse = data.candidates?.[0]?.content?.parts?.[0]?.text || "No response from API";
             let typingText = "";
             let i = 0;
-
             setResponses(prevResponses => [...prevResponses, { message, response: "" }]);
+
             const interval = setInterval(() => {
                 if (i < dataResponse.length) {
                     typingText += dataResponse[i];
@@ -145,7 +157,8 @@ function UiPage() {
                 } else {
                     clearInterval(interval); 
                 }
-            }, 200); 
+            }, 50);  
+
             setMessage(""); 
         })
         .catch(error => console.error("Error:", error));
@@ -174,10 +187,10 @@ function UiPage() {
             </aside>
             
             <div className="chat-section">
-                <header className="chat-header">
-                    <h2>Gemini AI</h2>
-                    <FiUser className="login-icon" onClick={() => navigate("/")} />
-                </header>
+                <h2>Gemini AI</h2>
+                <div className="user-icon" onClick={() => navigate("/")}>
+                    {userInitial ? userInitial : <FiUser />}
+                </div>
                 
                 <div className="chat-box">
                     {responses.map((chat, index) => (
@@ -191,7 +204,7 @@ function UiPage() {
                         </div>
                     ))}
                 </div>
-                
+
                 <div className="input-box">
                     <div className="icon-container">
                         <FiMic className="mic-icon" />
@@ -225,35 +238,15 @@ function UiPage() {
                 </div>
             </div>
         </div>
-
-        <div className="welcome-part">
-          <h1>Welcome to Gemini AI</h1>
-          <p>How can I assist Today?</p>
-        </div>
-
-        <div className="input-box">
-          <div className="icon-container">
-            {/* <FiMic className="mic-icon"  onClick={handleVoiceInput} /> */}
-            <FiMic className="mic-icon" onClick={startListening} style={{ cursor: "pointer", marginLeft: "10px" }} />
-            <label htmlFor="fileInput" >
-              <FiPlus  style={{margin:'5px'}}/>
-            </label>
-          </div>
-          <input type="text" value={message} onChange={(e) => setMessage(e.target.value)} onKeyDown={(e) => e.key === "Enter" && handleSend()}placeholder="Type a message..." />
-          <button  onClick={handleSend}>
-            <FiSend />
-          </button>
-
-          <input type="file" id="fileInput" style={{ display: 'none' }} /> 
-        </div>
-      </div>
-
-    </div>
-   </>
-  )
-   
- }
-    
+    );
+}
 export default UiPage;
 
 
+
+
+
+
+
+
+        
