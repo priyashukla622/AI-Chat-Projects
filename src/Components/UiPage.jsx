@@ -27,7 +27,9 @@ function UiPage() {
     const handleSend = () => {
         if (!message.trim()) return; 
 
-        fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=YOUR_API_KEY", {
+        const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+
+        fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
