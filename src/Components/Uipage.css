@@ -42,26 +42,20 @@
   margin-left: -45px;
 
 }
-  
 .sidebar ul li {
   margin: 40px;
   cursor: pointer;
-  
 }
-
 .sidebar ul li:hover {
   color: rgb(58, 58, 178);
   border-radius: 20px;
-  
 }
-
 .chat-section {
   flex: 1;
   display: flex;
   flex-direction: column;
   background: white;
 }
-  
  .chat-header {
   display: flex;
   justify-content: space-between;
@@ -70,7 +64,6 @@
   padding: 15px;
   font-size: 20px;
 }
-
 .login-icon {
   font-size: 24px;
   cursor: pointer;
@@ -105,15 +98,12 @@
   gap: 10px;
 
 }
-  
 .message {
   max-width: 80%;
   padding: 10px;
   border-radius: 10px;
   font-size: 14px;
 }
-
-
 .chat-you{
   width: auto;
   margin-left: 50%;
@@ -121,9 +111,7 @@
   padding: 1px;
   border-radius: 5px;
   background-color: #e6e6e6;
-
 }
-
 .chat-bot{
   width: 50%;
   margin-bottom: 10px;
@@ -135,7 +123,6 @@
 .you, .bot{
   margin-left: 10px;
 }
-
  .input-box {
   display: flex;
   align-items: center;
@@ -174,7 +161,6 @@
   margin-bottom: 50px;
   cursor: pointer;
 }
-
 .mic-icon {
   font-size: 24px;
   cursor: pointer;
@@ -184,8 +170,6 @@
   margin-bottom: 30px;
   margin-left: 20px;
 }
-
-
 .icon-container label{
   cursor: pointer;
   margin-top: 60px;
@@ -195,7 +179,6 @@
   width: 30px;
   height: 30px;
   background-color: #ddd9d9;
-
 }
 
 .activity-link {
@@ -204,54 +187,80 @@
   display: flex;
   align-items: center;
 }
-
-.activity-icon {
-  margin-right: 20px;
+/* Light Mode */
+.chat-container.light {
+  background-color: #ffffff; 
+  color: #000000; 
 }
-
-.help-options {
-  position: absolute;
-  top: 35%; 
-  left: 15%; 
-  background: white;
-  border-radius: 5px;
-  min-width: 50px; 
-  max-width: 100px; 
-  height: 10%; 
-  display: none; 
-  z-index: 10;
+.chat-container.dark {
+  background-color: #121212; 
+  color: #ffffff;
 }
-
-
-
-.help-options li {
-  display: block;   
-  text-align: left;
-  list-style: none;
-  text-decoration: none;
-  padding: 10px;
-
+.chat-container.light .sidebar {
+  background-color: #f5f5f5; 
+  color: #2c3e50;
 }
-.help-options li a{
-  text-decoration: none;
-  color:#2c3e50 ;
+.chat-container.dark .sidebar {
+  background-color: #0a0a0a; 
+  color: #ffffff; 
 }
-
-
-/* Ensure no gap between Update and FAQ */
-.help-options li:first-child {
-  margin-top: -5px;
-  margin-left: 25px;
-  
+.chat-container.dark .sidebar button {
+  color: #ffffff;
 }
-
-.help-options li:last-child {
-  margin-top: -45px; 
-  margin-left: 25px;
-
+.chat-container.dark .sidebar button:hover {
+  color: #1e90ff;
 }
-
-
-.help-menu .help-options {
-  display: block; 
+.chat-container.dark .sidebar ul li:hover {
+  color: #ffffff;
+  background-color: #222222;
+  border-radius: 20px;
+}
+.chat-container.dark .chat-section {
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+.chat-container.dark .input-box {
+  background-color: #222222; 
+}
+.chat-container.dark .input-box input {
+  background-color: #333333;
+  color: #ffffff;
+  border: 1px solid #555;
+}
+.chat-container.dark .input-box input::placeholder {
+  color: #bbb;
+}
+.chat-container.light .login-icon {
+  color: #2c3e50;
+}
+.chat-container.dark .login-icon {
+  color: #ffffff; 
+}
+.chat-container.light h2 {
+  color: #2c3e50; 
+}
+.chat-container.dark h2{
+  color: #ffffff;
+}
+.chat-you.light .you{
+  color: #2c3e50; 
+}
+.chat-you.dark .you{
+  color: #ffffff;
+}
+.chat-container.light .chat-you {
+  background-color: #e6e6e6;
+  color: #000;
+}
+.chat-container.dark .chat-you {
+  background-color: #333333;
+  color: #ffffff;
+}
+.chat-container.light .chat-bot {
+  background-color: #d0e0ff;
+  color: #000;
+}
+.chat-container.dark .chat-bot {
+  background-color: #1e3a5f;
+  color: #ffffff;
 }
