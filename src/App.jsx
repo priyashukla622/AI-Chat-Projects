@@ -12,7 +12,7 @@ function App() {
     <Router>
     <UiPage/>
       <Routes>
-        <Route path="/" element={<SignUp />} />
+        <Route path="/signUp" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
         {/* <Route path="/ModeToggle" element={<ModeToggle/>}/>  */}
       </Routes>

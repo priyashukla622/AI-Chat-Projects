@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-import React, { useState, useEffect } from "react";
 import { FiSend, FiMic, FiMenu, FiUser, FiActivity, FiSettings, FiLogOut, FiHelpCircle, FiPlus } from "react-icons/fi";
 import { useNavigate } from "react-router-dom"; 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -118,7 +117,14 @@ function UiPage() {
                     <FiMenu />
                 </button>
                 <ul>
-                    <li><FiActivity style={{ marginRight: "20px" }} /> Activity</li>
+                    {/* <li><FiActivity style={{ marginRight: "20px" }} /> Activity</li> */}
+                    <li>
+                      <a href="https://myactivity.google.com/product/gemini?utm_source=gemini" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", color: "inherit", display: "flex", alignItems: "center" }}><FiActivity style={{ marginRight: "20px" }} /> 
+                          Activity
+                      </a>
+                    </li>
+
+
                     <li onClick={() => setShowPopup(true)}><FiSettings style={{ marginRight: "20px" }} /> Settings</li>
                     <li className="help-menu" onClick={() => setShowHelpOptions(!showHelpOptions)}>
                       <FiHelpCircle style={{ marginRight: "20px" }} /> Help
@@ -136,7 +142,7 @@ function UiPage() {
             <div className="chat-section">
                 <header className="chat-header">
                     <h2>Gemini AI</h2>
-                    <FiUser className="login-icon" onClick={() => navigate("/")} />
+                    <FiUser className="login-icon" onClick={() => navigate("/signup")} />
                 </header>
 
                 {/* <div className="welcome-part">
@@ -173,12 +179,11 @@ function UiPage() {
                     {showPopup && (
                         <div className="setting-popup">
                             <div className="popup-content">
-                                <button onClick={toggleMode}>
-                                    <FontAwesomeIcon icon={faMoon} />
-                                    {darkMode ? "Light Mode" : "Dark Mode"}
+                                <button className="dark-btn" onClick={toggleMode}>
+                                    {/* {darkMode ? "Light Mode" : "Dark Mode"} */}
                                     <FontAwesomeIcon icon={darkMode ? faToggleOn : faToggleOff} className="toggle-icon" />
                                 </button>
-                                <button className="close-btn" onClick={() => setShowPopup(false)}>Close</button>
+                                <button className="close-btn" onClick={() => setShowPopup(false)}>×</button>
                             </div>
                         </div>
                     )}
