@@ -51,7 +51,6 @@
 
 .sidebar ul li:hover {
   color: rgb(58, 58, 178);
-  background-color:rgb(220, 219, 219) ;
   border-radius: 20px;
   
 }
@@ -71,10 +70,30 @@
   padding: 15px;
   font-size: 20px;
 }
-  
+
 .login-icon {
   font-size: 24px;
   cursor: pointer;
+}
+
+.welcome-part{
+  padding: 20px;
+  text-align: center;
+  opacity: 0;
+  color: gray;
+  transform: translateX(-100%);
+  animation: slideIn 2s forwards;
+}
+
+.welcome-part p{
+  font-size: 20px;
+}
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .chat-box {
@@ -178,46 +197,61 @@
   background-color: #ddd9d9;
 
 }
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+
+.activity-link {
+  text-decoration: none;
+  color: inherit;
   display: flex;
   align-items: center;
-  justify-content: center;
 }
 
-.modal {
+.activity-icon {
+  margin-right: 20px;
+}
+
+.help-options {
+  position: absolute;
+  top: 35%; 
+  left: 15%; 
   background: white;
-  padding: 20px;
-  border-radius: 10px;
-  width: 300px;
-  text-align: center;
-}
-.modal input {
-  width: 90%;
-  margin: 10px 0;
-  padding: 10px;
-  border: 1px solid #ccc;
   border-radius: 5px;
-}
-.modal button {
-  width: 100%;
-  padding: 10px;
-  margin-top: 10px;
-  border: none;
-  cursor: pointer;
-  background: #007bff;
-  color: white;
-  border-radius: 5px;
-}
-.close-btn {
-  background: red;
-  background-color: #e6e6e6;
-  color: black;
-  font-size: 25px;
+  min-width: 50px; 
+  max-width: 100px; 
+  height: 10%; 
+  display: none; 
+  z-index: 10;
 }
 
+
+
+.help-options li {
+  display: block;   
+  text-align: left;
+  list-style: none;
+  text-decoration: none;
+  padding: 10px;
+
+}
+.help-options li a{
+  text-decoration: none;
+  color:#2c3e50 ;
+}
+
+
+/* Ensure no gap between Update and FAQ */
+.help-options li:first-child {
+  margin-top: -5px;
+  margin-left: 25px;
+  
+}
+
+.help-options li:last-child {
+  margin-top: -45px; 
+  margin-left: 25px;
+
+}
+
+
+.help-menu .help-options {
+  display: block; 
+}
