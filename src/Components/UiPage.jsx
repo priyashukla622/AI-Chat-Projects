@@ -1,5 +1,6 @@
-
 import React, { useState } from "react";
+
+import React, { useState, useEffect } from "react";
 import { FiSend, FiMic, FiMenu, FiUser, FiActivity, FiSettings, FiLogOut, FiHelpCircle, FiPlus } from "react-icons/fi";
 import { useNavigate } from "react-router-dom"; 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -157,9 +158,13 @@ function UiPage() {
                     ))}
                 </div>
                 
+                {/* <div className="input-box">
+                    <div className="icon-container">
+                    <FiMic className="mic-icon" onClick={startListening} style={{ cursor: "pointer", marginLeft: "10px" }} /> */}
+
                 <div className="input-box">
                     <div className="icon-container">
-                    <FiMic className="mic-icon" onClick={startListening} style={{ cursor: "pointer", marginLeft: "10px" }} />
+                        <FiMic className="mic-icon" />
                         <label htmlFor="fileInput">
                             <FiPlus style={{ margin: "5px" }} />
                         </label>
@@ -195,6 +200,7 @@ function UiPage() {
    
  }
     
+  
 export default UiPage;
 
 
@@ -204,5 +210,4 @@ export default UiPage;
 
 
 
-
-
+        

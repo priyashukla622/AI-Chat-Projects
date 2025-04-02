@@ -23,9 +23,10 @@ const Login = () => {
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem("token", data.token, "email", data.email);
-        alert("Login Successful!");
-        navigate("/dashboard"); 
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("email", data.email); 
+          alert("Login Successful!");
+          navigate("/dashboard"); 
       } else {
         alert(data.message || "Login Failed");
       }
