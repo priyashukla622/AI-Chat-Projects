@@ -3,14 +3,12 @@ import { FiSend, FiMic, FiMenu, FiUser, FiActivity, FiSettings, FiLogOut, FiHelp
 import { useNavigate } from "react-router-dom"; 
 import  "./Uipage.css";
 
-
 function UiPage() {
     const [collapsed, setCollapsed] = useState(false);
     const [message, setMessage] = useState("");
     const [responses, setResponses] = useState([]);
     const navigate = useNavigate();  
     const [showHelpOptions, setShowHelpOptions] = useState(false);
-    
 
     const toggleSidebar = () =>{
       if (collapsed){
@@ -39,7 +37,6 @@ function UiPage() {
           let i = 0;
           
           setResponses(prevResponses => [...prevResponses, { message, response: "" }]);
-
           const interval = setInterval(() => {
               if (i < dataResponse.length) {
                   typingText += dataResponse[i];
