@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-
 import React, { useState, useEffect } from "react";
 import { FiSend, FiMic, FiMenu, FiUser, FiActivity, FiSettings, FiLogOut, FiHelpCircle, FiPlus } from "react-icons/fi";
 import { useNavigate } from "react-router-dom"; 
@@ -20,7 +18,6 @@ function UiPage() {
 
     const navigate = useNavigate();  
 
-    // const toggleSidebar = () => setCollapsed(!collapsed);
     const toggleSidebar = () =>{
        if (collapsed){
          setCollapsed(false)
@@ -58,10 +55,10 @@ function UiPage() {
     
       recognition.onresult = (event) => {
         const transcript = event.results[0][0].transcript;
-        setMessage(transcript); // Show text in input field
+        setMessage(transcript);
         
         setTimeout(() => {
-          handleSend();  // Automatically send after capturing voice
+          handleSend();  
         }, 500); 
       };
     
@@ -139,13 +136,6 @@ function UiPage() {
                     <FiUser className="login-icon" onClick={() => navigate("/")} />
                 </header>
 
-                {/* <div className="welcome-part">
-                  <h1>Welcome to Gemini AI</h1>
-                  <p>How can I assist Today?</p>
-                </div> */}
-
-
-                
                 <div className="chat-box">
                     {responses.map((chat, index) => (
                         <div key={index} className="chat-item">
@@ -159,9 +149,6 @@ function UiPage() {
                     ))}
                 </div>
                 
-                {/* <div className="input-box">
-                    <div className="icon-container">
-                    <FiMic className="mic-icon" onClick={startListening} style={{ cursor: "pointer", marginLeft: "10px" }} /> */}
 
                 <div className="input-box">
                     <div className="icon-container">
