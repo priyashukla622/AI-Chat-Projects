@@ -7,6 +7,7 @@ import { faMoon } from "@fortawesome/free-regular-svg-icons";
 import { faToggleOn, faToggleOff } from "@fortawesome/free-solid-svg-icons";
 import "./Uipage.css";
 
+
  function UiPage() {
     const [collapsed, setCollapsed] = useState(false);
     const [message, setMessage] = useState("");
@@ -144,6 +145,7 @@ import "./Uipage.css";
                             <div className="chat-bot">
                                 <p><strong>Bot:</strong> {chat.response}</p>
                             </div>
+                         
                         </div>
                     ))}
                 </div>
