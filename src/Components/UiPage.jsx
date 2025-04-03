@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { FiSend, FiMic, FiMenu, FiUser, FiActivity, FiSettings, FiLogOut, FiHelpCircle, FiPlus } from "react-icons/fi";
 import { useNavigate } from "react-router-dom"; 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMoon } from "@fortawesome/free-regular-svg-icons";
 import { faToggleOn, faToggleOff } from "@fortawesome/free-solid-svg-icons";
 import "./Uipage.css";
 
@@ -190,12 +189,3 @@ import "./Uipage.css";
     
   
 export default UiPage;
-
-
-
-
-
-
-
-
-        
