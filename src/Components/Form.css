@@ -76,16 +76,16 @@ h2{
   position: relative;
 }
 .password-input {
-  padding-right: 130px;
+  padding-right: 154px;
   font-size: 16px;
 }
 
 .eye-icon {
   position: absolute;
-  right: 10px;
+  right: 12px;
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
   color: #555;
-  font-size: 20px;
+  font-size: 17px;
 }
