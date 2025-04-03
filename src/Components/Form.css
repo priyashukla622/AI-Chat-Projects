@@ -5,14 +5,15 @@
   margin-top: 1px;
   justify-content: center;
   height: 40vh;
+  justify-content: center;
+  height: 20vh;
 }
 .signIn-form {
   display: flex;
   flex-direction: column;
   width: 350px;
   height: 380px;
-  margin-bottom: 1350px;
-  margin-bottom: 950px;
+  margin-bottom: 850px;
   margin-left: 400px;
   gap: 15px;
   padding: 30px;

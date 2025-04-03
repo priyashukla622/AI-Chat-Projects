@@ -6,7 +6,7 @@ import { faMoon } from "@fortawesome/free-regular-svg-icons";
 import { faToggleOn, faToggleOff } from "@fortawesome/free-solid-svg-icons";
 import "./Uipage.css";
 
-function UiPage() {
+ function UiPage() {
     const [collapsed, setCollapsed] = useState(false);
     const [message, setMessage] = useState("");
     const [responses, setResponses] = useState([]);
@@ -55,7 +55,10 @@ function UiPage() {
     
       recognition.onresult = (event) => {
         const transcript = event.results[0][0].transcript;
-        setMessage(transcript);
+
+
+        setMessage(transcript); //  here text is showing in input box 
+
         
         setTimeout(() => {
           handleSend();  
@@ -65,9 +68,6 @@ function UiPage() {
       recognition.start();
     };
     
-
-    
-
     const handleSend = () => {
         if (!message.trim()) return; 
 
@@ -106,7 +106,6 @@ function UiPage() {
         .catch(error => console.error("Error:", error));
 
     };
-
     return (
     <>
         <div className={`chat-container ${darkMode ? "dark" : "light"}`}>
@@ -115,7 +114,11 @@ function UiPage() {
                     <FiMenu />
                 </button>
                 <ul>
-                    <li><FiActivity style={{ marginRight: "20px" }} /> Activity</li>
+                    <li>
+                      <a href="https://myactivity.google.com/product/gemini?utm_source=gemini" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", color: "inherit", display: "flex", alignItems: "center" }}><FiActivity style={{ marginRight: "20px" }} /> 
+                          Activity
+                      </a>
+                    </li>
                     <li onClick={() => setShowPopup(true)}><FiSettings style={{ marginRight: "20px" }} /> Settings</li>
                     <li className="help-menu" onClick={() => setShowHelpOptions(!showHelpOptions)}>
                       <FiHelpCircle style={{ marginRight: "20px" }} /> Help
@@ -129,11 +132,10 @@ function UiPage() {
                     <li onClick={handleLogout}><FiLogOut style={{ marginRight: "20px" }} /> Logout</li>
                 </ul>
             </aside>
-            
             <div className="chat-section">
                 <header className="chat-header">
                     <h2>Gemini AI</h2>
-                    <FiUser className="login-icon" onClick={() => navigate("/")} />
+                    <FiUser className="login-icon" onClick={() => navigate("/signup")} />
                 </header>
 
                 <div className="chat-box">
@@ -149,10 +151,9 @@ function UiPage() {
                     ))}
                 </div>
                 
-
                 <div className="input-box">
                     <div className="icon-container">
-                        <FiMic className="mic-icon" />
+                        <FiMic className="mic-icon"  onClick={startListening}/>
                         <label htmlFor="fileInput">
                             <FiPlus style={{ margin: "5px" }} />
                         </label>
@@ -160,12 +161,11 @@ function UiPage() {
                     {showPopup && (
                         <div className="setting-popup">
                             <div className="popup-content">
-                                <button onClick={toggleMode}>
-                                    <FontAwesomeIcon icon={faMoon} />
-                                    {darkMode ? "Light Mode" : "Dark Mode"}
+                                <button className="dark-btn" onClick={toggleMode}>
+                                    {/* {darkMode ? "Light Mode" : "Dark Mode"} */}
                                     <FontAwesomeIcon icon={darkMode ? faToggleOn : faToggleOff} className="toggle-icon" />
                                 </button>
-                                <button className="close-btn" onClick={() => setShowPopup(false)}>Close</button>
+                                <button className="close-btn" onClick={() => setShowPopup(false)}>×</button>
                             </div>
                         </div>
                     )}
