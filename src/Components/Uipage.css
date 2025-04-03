@@ -225,9 +225,9 @@
 .help-options li:last-child {
   margin-top: -25px; 
   margin-left: 25px;
-
 }
-.user-icon {
+
+.user-icon { 
   width: 35px;
   height: 35px;
   display: flex;
@@ -242,6 +242,13 @@
 
 
 
+.help-menu .help-options {
+  display: block; 
+}
+.chat-container.light {
+  background-color: #ffffff; 
+  color: #000000; 
+}
 .chat-container.dark {
   background-color: #121212; 
   color: #ffffff;
@@ -254,9 +261,6 @@
   background-color: #0a0a0a; 
   color: #ffffff; 
 }
-
-
-
 .chat-container.dark .sidebar button {
   color: #ffffff;
 }
@@ -306,9 +310,6 @@
   margin-top: -390px;
   background-color: white;
 }
-
-
-
 .popup-content {
   display: flex;
   align-items: center;
@@ -316,10 +317,6 @@
   gap: -30px; 
   
 }
-
-
-
-
 .popup-content .close-btn, 
 .popup-content .dark-btn {
   font-size: 30px;
