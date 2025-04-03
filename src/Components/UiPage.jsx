@@ -201,6 +201,3 @@ import "./Uipage.css";
   )
  }
 export default UiPage;
-
-
-
