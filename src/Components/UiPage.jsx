@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
+import ReactMarkdown from "react-markdown";
 import { FiSend, FiMic, FiMenu, FiUser, FiActivity, FiSettings, FiLogOut, FiHelpCircle, FiPlus } from "react-icons/fi";
 import { useNavigate } from "react-router-dom"; 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faToggleOn, faToggleOff } from "@fortawesome/free-solid-svg-icons";
+import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
+
 import "./Uipage.css";
 
-
- function UiPage() {
+function UiPage() {
     const [collapsed, setCollapsed] = useState(false);
     const [message, setMessage] = useState("");
     const [responses, setResponses] = useState([]);
@@ -36,14 +38,7 @@ import "./Uipage.css";
         };
     }, []);
 
-    const toggleSidebar = () =>{
-       if (collapsed){
-         setCollapsed(false)
-      }
-        else{
-          setCollapsed(true)
-        }
-    }
+    const toggleSidebar = () => setCollapsed(!collapsed);
     const toggleMode = () => setDarkMode(!darkMode);
 
     const handleLogout = () => {
@@ -54,15 +49,40 @@ import "./Uipage.css";
         alert("You have logged out successfully.");
         navigate("/login");
     };
+
+    // Mic functionality
+    const [isMicOn, setIsMicOn] = useState(false);
+    const { transcript, listening, resetTranscript, browserSupportsSpeechRecognition } = useSpeechRecognition();
     
+    useEffect(() => {
+        if (listening && transcript) {
+            setMessage(transcript);  
+        }
+    }, [transcript]);  
 
-    // mic
+    const toggleMic = () => {
+        setIsMicOn(prevState => {
+            if (prevState) {
+                SpeechRecognition.stopListening();
+                alert("Microphone Stopped");
+            } else {
+                SpeechRecognition.startListening({ continuous: true, language: "en-IN" });
+                alert("Microphone Started");
+            }
+            return !prevState;
+        });
+    };
+
     const handleSend = () => {
-        if (!message.trim()) return; 
+        if (message.trim() === "") return;
+        console.log("Message Sent:", message);
 
-        const API_KEY = import.meta.env.VITE_API_URL;
+        setResponses(prevResponses => [...prevResponses, { message, response: null }]);
+        setMessage("");  
+        resetTranscript();
 
-        fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`, {
+
+        fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCHW1OXkJKoP7DeA9SyP17Qkua9Synvkfs", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -75,25 +95,26 @@ import "./Uipage.css";
             let typingText = "";
             let i = 0;
 
-            setResponses(prevResponses => [...prevResponses, { message, response: "" }]);
             const interval = setInterval(() => {
                 if (i < dataResponse.length) {
                     typingText += dataResponse[i];
                     setResponses(prevResponses => {
                         const updatedResponses = [...prevResponses];
-                        updatedResponses[updatedResponses.length - 1] = { message, response: typingText };
+                        updatedResponses[updatedResponses.length - 1] = { 
+                            ...updatedResponses[updatedResponses.length - 1], 
+                            response: typingText 
+                        };
                         return updatedResponses;
                     });
                     i++;
                 } else {
                     clearInterval(interval); 
                 }
-            }, 30); 
-            setMessage(""); 
+            }, 30);
         })
         .catch(error => console.error("Error:", error));
-
     };
+
     return (
     <>
         <div className={`chat-container ${darkMode ? "dark" : "light"}`}>
@@ -108,7 +129,9 @@ import "./Uipage.css";
                       </a>
                     </li>
                     <li onClick={() => setShowPopup(true)}><FiSettings style={{ marginRight: "20px" }} /> Settings</li>
+
                     <li className="help-menu" onClick={() => setShowHelpOptions(!showHelpOptions)}>
+                        
                       <FiHelpCircle style={{ marginRight: "20px" }} /> Help
                       {showHelpOptions && (
                         <ul className="help-options">
@@ -121,26 +144,27 @@ import "./Uipage.css";
                 </ul>
             </aside>
             <div className="chat-section">
-            <header className="chat-header">
-                <h2>Gemini AI</h2>
-                <div className="user-icon" onClick={() => navigate("/signUp")}> {userInitial} </div>
-            </header>
+                <header className="chat-header">
+                    <h2>Gemini AI</h2>
+                    <div className="user-icon" onClick={() => navigate("/signUp")}> {userInitial} </div>
+                </header>
                 <div className="chat-box">
                     {responses.map((chat, index) => (
                         <div key={index} className="chat-item">
                             <div className="chat-you">
-                                <p><strong>You:</strong> {chat.message}</p>
+                                <ReactMarkdown>{chat.message}</ReactMarkdown>
                             </div>
-                            <div className="chat-bot">
-                                <p><strong>Bot:</strong> {chat.response}</p>
-                            </div>
-                         
+                            {chat.response !== null && (
+                                <div className="chat-bot">
+                                    <ReactMarkdown>{chat.response}</ReactMarkdown>
+                                </div>
+                            )}
                         </div>
                     ))}
                 </div>
                 <div className="input-box">
                     <div className="icon-container">
-                        <FiMic className="mic-icon"/>
+                        <FiMic className="mic-icon" onClick={toggleMic} style={{ cursor: 'pointer', fontSize: '24px', color: listening ? 'red' : 'black' }} />
                         <label htmlFor="fileInput">
                             <FiPlus style={{ margin: "5px" }} />
                         </label>
@@ -170,11 +194,10 @@ import "./Uipage.css";
             </div>
         </div>
     </>
-  )
- }
+  );
+}
+
 export default UiPage;
-
-
 
 
 
