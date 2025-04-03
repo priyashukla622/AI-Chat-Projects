@@ -56,6 +56,36 @@ import "./Uipage.css";
     
 
     // mic
+  
+    const startListening = () => {
+      if (!("webkitSpeechRecognition" in window)) {
+        alert("Speech Recognition is not supported in this browser.");
+        return;
+      }
+    
+      const recognition = new window.webkitSpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = "en-US";
+    
+      recognition.onstart = () => setIsListening(true);
+      recognition.onend = () => setIsListening(false);
+    
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+
+
+        setMessage(transcript); //  here text is showing in input box 
+
+        
+        setTimeout(() => {
+          handleSend();  
+        }, 500); 
+      };
+    
+      recognition.start();
+    };
+    
     const handleSend = () => {
         if (!message.trim()) return; 
 
