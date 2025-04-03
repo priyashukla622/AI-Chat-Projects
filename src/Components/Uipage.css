@@ -224,9 +224,9 @@
 .help-options li:last-child {
   margin-top: -25px; 
   margin-left: 25px;
-
 }
-.user-icon {
+
+.user-icon { 
   width: 35px;
   height: 35px;
   display: flex;
@@ -237,6 +237,14 @@
   font-weight: bold;
   border-radius: 50%;
   cursor: pointer;
+}
+
+.help-menu .help-options {
+  display: block; 
+}
+.chat-container.light {
+  background-color: #ffffff; 
+  color: #000000; 
 }
 
 .chat-container.dark {
@@ -251,7 +259,6 @@
   background-color: #0a0a0a; 
   color: #ffffff; 
 }
-
 .chat-container.dark .sidebar button {
   color: #ffffff;
 }

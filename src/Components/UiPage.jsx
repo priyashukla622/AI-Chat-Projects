@@ -12,10 +12,28 @@ import "./Uipage.css";
     const [darkMode, setDarkMode] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
     const [showHelpOptions, setShowHelpOptions] = useState(false);
-
-    const [isListening, setIsListening] = useState(false);
+    const [userInitial, setUserInitial] = useState(<FiUser/>);
 
     const navigate = useNavigate();  
+   
+    useEffect(() => {
+        const updateUserInitial = () => {
+            const userEmail = localStorage.getItem("email");
+            console.log("Fetched Email:", userEmail);
+            
+            if (userEmail && userEmail.length > 0) {
+                setUserInitial(userEmail.charAt(0).toUpperCase());
+            } else {
+                setUserInitial(<FiUser/>);
+            }
+        };
+        updateUserInitial(); 
+        window.addEventListener("emailUpdated", updateUserInitial);
+
+        return () => {
+            window.removeEventListener("emailUpdated", updateUserInitial);
+        };
+    }, []);
 
     const toggleSidebar = () =>{
        if (collapsed){
@@ -25,16 +43,17 @@ import "./Uipage.css";
           setCollapsed(true)
         }
     }
-
     const toggleMode = () => setDarkMode(!darkMode);
 
-  
     const handleLogout = () => {
         localStorage.removeItem("token"); 
         localStorage.removeItem("email"); 
+        window.dispatchEvent(new Event("emailUpdated"));
+    
         alert("You have logged out successfully.");
         navigate("/login");
     };
+    
 
     // mic
   
@@ -70,8 +89,7 @@ import "./Uipage.css";
     const handleSend = () => {
         if (!message.trim()) return; 
 
-
-        const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+        const API_KEY = import.meta.env.VITE_API_URL;
 
         fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`, {
             method: "POST",
@@ -99,7 +117,7 @@ import "./Uipage.css";
                 } else {
                     clearInterval(interval); 
                 }
-            }, 200); 
+            }, 30); 
             setMessage(""); 
         })
         .catch(error => console.error("Error:", error));
@@ -132,11 +150,10 @@ import "./Uipage.css";
                 </ul>
             </aside>
             <div className="chat-section">
-                <header className="chat-header">
-                    <h2>Gemini AI</h2>
-                    <FiUser className="login-icon" onClick={() => navigate("/signup")} />
-                </header>
-
+            <header className="chat-header">
+                <h2>Gemini AI</h2>
+                <div className="user-icon" onClick={() => navigate("/signUp")}> {userInitial} </div>
+            </header>
                 <div className="chat-box">
                     {responses.map((chat, index) => (
                         <div key={index} className="chat-item">
@@ -149,10 +166,9 @@ import "./Uipage.css";
                         </div>
                     ))}
                 </div>
-                
                 <div className="input-box">
                     <div className="icon-container">
-                        <FiMic className="mic-icon"  onClick={startListening}/>
+                        <FiMic className="mic-icon"/>
                         <label htmlFor="fileInput">
                             <FiPlus style={{ margin: "5px" }} />
                         </label>
@@ -161,7 +177,6 @@ import "./Uipage.css";
                         <div className="setting-popup">
                             <div className="popup-content">
                                 <button className="dark-btn" onClick={toggleMode}>
-                                    {/* {darkMode ? "Light Mode" : "Dark Mode"} */}
                                     <FontAwesomeIcon icon={darkMode ? faToggleOn : faToggleOff} className="toggle-icon" />
                                 </button>
                                 <button className="close-btn" onClick={() => setShowPopup(false)}>×</button>
@@ -184,8 +199,5 @@ import "./Uipage.css";
         </div>
     </>
   )
-   
  }
-    
-  
 export default UiPage;
