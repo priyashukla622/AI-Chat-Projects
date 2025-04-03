@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
 import { FiSend, FiMic, FiMenu, FiUser, FiActivity, FiSettings, FiLogOut, FiHelpCircle, FiPlus } from "react-icons/fi";
 import { useNavigate } from "react-router-dom"; 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -56,7 +55,10 @@ import "./Uipage.css";
     
       recognition.onresult = (event) => {
         const transcript = event.results[0][0].transcript;
+
+
         setMessage(transcript); //  here text is showing in input box 
+
         
         setTimeout(() => {
           handleSend();  
