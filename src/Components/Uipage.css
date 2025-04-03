@@ -184,6 +184,7 @@
   display: flex;
   align-items: center;
 }
+
 /* Light Mode */
 .chat-container.light {
   background-color: #ffffff; 
@@ -336,10 +337,6 @@
   font-size: 15px;
 }
 
-
-/* .chat-container.dark .sidebar button:hover {
-  color: #1e90ff;
-} */
 
 
 

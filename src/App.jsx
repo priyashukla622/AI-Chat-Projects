@@ -14,10 +14,8 @@ function App() {
       <Routes>
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
-        {/* <Route path="/ModeToggle" element={<ModeToggle/>}/>  */}
       </Routes>
     </Router>
-    {/* <ModeToggle/>   */}
     </>
   );
 }
