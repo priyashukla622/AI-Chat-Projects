@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import "./Form.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 const handleSubmit = async (e) => {
   e.preventDefault();
@@ -47,14 +50,21 @@ const handleSubmit = async (e) => {
           required
           className="input"
         />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          className="input"
-        />
+        <div className="password-container"> 
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            className="input password-input"
+          />
+          <FontAwesomeIcon
+            icon={showPassword ? faEye : faEyeSlash}
+            className="eye-icon"
+            onClick={() => setShowPassword(!showPassword)}
+          />
+        </div>
         <button type="submit" className="button">
           Login
         </button>
