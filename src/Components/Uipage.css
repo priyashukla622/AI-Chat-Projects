@@ -212,9 +212,9 @@
 .help-options li:last-child {
   margin-top: -45px; 
   margin-left: 25px;
-
 }
-.user-icon {
+
+.user-icon { 
   width: 35px;
   height: 35px;
   display: flex;
@@ -226,6 +226,7 @@
   border-radius: 50%;
   cursor: pointer;
 }
+
 
 
 .help-menu .help-options {

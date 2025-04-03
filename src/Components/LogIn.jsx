@@ -6,38 +6,38 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const userData = { email, password };
-
     try {
-      const response = await fetch("https://ai-chat-backend-2.onrender.com/api/user/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
-      });
+        console.log("Sending request to API...");
 
-      const data = await response.json();
+        const response = await fetch("https://ai-chat-backend-2.onrender.com/api/user/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(userData),
+        });
 
-      if (response.ok) {
-          localStorage.setItem("token", data.token);
-          localStorage.setItem("email", data.email); 
-          alert("Login Successful!");
-          navigate("/dashboard"); 
-      } else {
-        alert(data.message || "Login Failed");
-      }
+        console.log("Response status:", response.status);
+
+        const data = await response.json();
+        console.log("Login Response:", data);  
+  
+        if (response.ok) {
+            console.log("Extracted Email:", data.email);
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("email", data.email || "");  
+            alert("Login Successful!");
+            navigate("/dashboard"); 
+        } else {
+            console.log("Error Response:", data);
+            alert(data.message || "Login Failed");
+        }
     } catch (error) {
-      console.error(error);
-      alert("Something went wrong. Please try again.");
+        console.error("Fetch Error:", error);
+        alert("Something went wrong. Please check the console.");
     }
-    setEmail("");
-    setPassword("");
-  };
-
+};
   return (
     <div className="container">
       <form onSubmit={handleSubmit} className="logIn-form">
