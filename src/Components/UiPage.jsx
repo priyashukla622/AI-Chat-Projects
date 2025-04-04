@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faToggleOn, faToggleOff } from "@fortawesome/free-solid-svg-icons";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import "./Uipage.css";
 
@@ -146,19 +148,21 @@ function UiPage() {
                         </ul>
                         )}
                     </li>
-                    <li onClick={handleLogout}><FiLogOut style={{ marginRight: "20px" }} /> Logout</li>
+                    {/* <li ><FiLogOut style={{ marginRight: "20px" }}  onClick={() => navigate("/ui", { replace: true })}/> Logout</li> */}
+    
                 </ul>
             </aside>
             <div className="chat-section">
                 <header className="chat-header">
                     <h2>Gemini AI</h2>
-                    {/* <div className="user-icon" onClick={() => navigate("/signUp")}> {userInitial}
-                        
-                     </div> */}
+                    {/* <div className="user-icon" onClick={handleLogout} onClick={() => navigate("/ui", { replace: true })}>
+                        {userInitial}
+                    </div> */}
 
-                <div className="user-icon" onClick={() => navigate("/signUp")}>
-                {userInitial}
-                </div>
+                    <div className="user-icon" onClick={() => { handleLogout();
+                        navigate("/ui", { replace: true })}}>{userInitial}
+                    </div>
+                    
                 </header>
                 <div className="chat-box">
                     {responses.map((chat, index) => (

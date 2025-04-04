@@ -85,8 +85,14 @@ const SignUp = () => {
         <button type="submit" className="button">
           Sign Up
         </button>
+        <p className="signup-textLine">Already have an account? <span onClick={() => navigate("/login")} style={{ color: "blue", cursor: "pointer" }}>Login here</span></p>
+
       </form>
+      
+      
     </div>
+
+    
   );
 };
 export default SignUp;

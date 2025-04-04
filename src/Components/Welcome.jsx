@@ -11,14 +11,15 @@ const WelcomePage = () => {
           <span className="text-m">m</span>
           <span className="ini">ini</span>
           ,<br></br>
-        your personal AI assistant</h1>
+         your personal AI assistant</h1>
         <p className="welcome-text">How can I help you?</p>
         <p className="welcome-instruction">
           If you are a new user, please Sign Up; otherwise, Login.
         </p>
   
         <div className="button-group">
-          <button className="get-start" onClick={()=> navigate("/ui")}>Get Start</button>
+          <button className="signIn" onClick={() => navigate("/signUp")}>Sign In</button>
+          <button className="login" onClick={()=> navigate("/ui")}>Login</button>
         </div>
       </div>
     );
