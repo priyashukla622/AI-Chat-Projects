@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
-import ReactMarkdown from "react-markdown";
 import { FiSend, FiMic, FiMenu, FiUser, FiActivity, FiSettings, FiLogOut, FiHelpCircle, FiPlus } from "react-icons/fi";
 import { useNavigate } from "react-router-dom"; 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faToggleOn, faToggleOff } from "@fortawesome/free-solid-svg-icons";
-import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
-
 import "./Uipage.css";
 
-function UiPage() {
+ function UiPage() {
     const [collapsed, setCollapsed] = useState(false);
     const [message, setMessage] = useState("");
     const [responses, setResponses] = useState([]);
@@ -16,7 +13,6 @@ function UiPage() {
     const [showPopup, setShowPopup] = useState(false);
     const [showHelpOptions, setShowHelpOptions] = useState(false);
     const [userInitial, setUserInitial] = useState(<FiUser/>);
-    const [selectedFile, setSelectedFile] = useState(null);
 
     const navigate = useNavigate();  
    
@@ -39,7 +35,14 @@ function UiPage() {
         };
     }, []);
 
-    const toggleSidebar = () => setCollapsed(!collapsed);
+    const toggleSidebar = () =>{
+       if (collapsed){
+         setCollapsed(false)
+      }
+        else{
+          setCollapsed(true)
+        }
+    }
     const toggleMode = () => setDarkMode(!darkMode);
 
     const handleLogout = () => {
@@ -50,40 +53,13 @@ function UiPage() {
         alert("You have logged out successfully.");
         navigate("/login");
     };
-
-    // Mic functionality
-    const [isMicOn, setIsMicOn] = useState(false);
-    const { transcript, listening, resetTranscript, browserSupportsSpeechRecognition } = useSpeechRecognition();
-    
-    useEffect(() => {
-        if (listening && transcript) {
-            setMessage(transcript);  
-        }
-    }, [transcript]);  
-
-    const toggleMic = () => {
-        setIsMicOn(prevState => {
-            if (prevState) {
-                SpeechRecognition.stopListening();
-                alert("Microphone Stopped");
-            } else {
-                SpeechRecognition.startListening({ continuous: true, language: "en-IN" });
-                alert("Microphone Started");
-            }
-            return !prevState;
-        });
-    };
-
+    // mic
     const handleSend = () => {
-        if (message.trim() === "") return;
-        console.log("Message Sent:", message);
+        if (!message.trim()) return; 
 
-        setResponses(prevResponses => [...prevResponses, { message, response: null }]);
-        setMessage("");  
-        resetTranscript();
+        const API_KEY = import.meta.env.VITE_API_URL;
 
-
-        fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCHW1OXkJKoP7DeA9SyP17Qkua9Synvkfs", {
+        fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -96,34 +72,25 @@ function UiPage() {
             let typingText = "";
             let i = 0;
 
+            setResponses(prevResponses => [...prevResponses, { message, response: "" }]);
             const interval = setInterval(() => {
                 if (i < dataResponse.length) {
                     typingText += dataResponse[i];
                     setResponses(prevResponses => {
                         const updatedResponses = [...prevResponses];
-                        updatedResponses[updatedResponses.length - 1] = { 
-                            ...updatedResponses[updatedResponses.length - 1], 
-                            response: typingText 
-                        };
+                        updatedResponses[updatedResponses.length - 1] = { message, response: typingText };
                         return updatedResponses;
                     });
                     i++;
                 } else {
                     clearInterval(interval); 
                 }
-            }, 30);
+            }, 30); 
+            setMessage(""); 
         })
         .catch(error => console.error("Error:", error));
+
     };
-
-    const handleFileChange = (event)=>{
-        const file = event.target.files[0];
-        if (file){
-            setSelectedFile(file)
-            console.log("Selected fiel:", file.name);
-        }
-    }
-
     return (
     <>
         <div className={`chat-container ${darkMode ? "dark" : "light"}`}>
@@ -134,12 +101,11 @@ function UiPage() {
                 <ul>
                     <li>
                       <a href="https://myactivity.google.com/product/gemini?utm_source=gemini" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", color: "inherit", display: "flex", alignItems: "center" }}><FiActivity style={{ marginRight: "20px" }} /> 
-                        Activity
+                          Activity
                       </a>
                     </li>
                     <li onClick={() => setShowPopup(true)}><FiSettings style={{ marginRight: "20px" }} /> Settings</li>
                     <li className="help-menu" onClick={() => setShowHelpOptions(!showHelpOptions)}>
-                        
                       <FiHelpCircle style={{ marginRight: "20px" }} /> Help
                       {showHelpOptions && (
                         <ul className="help-options">
@@ -152,27 +118,25 @@ function UiPage() {
                 </ul>
             </aside>
             <div className="chat-section">
-                <header className="chat-header">
-                    <h2>Gemini AI</h2>
-                    <div className="user-icon" onClick={() => navigate("/signUp")}> {userInitial} </div>
-                </header>
+            <header className="chat-header">
+                <h2>Gemini AI</h2>
+                <div className="user-icon" onClick={() => navigate("/signUp")}> {userInitial} </div>
+            </header>
                 <div className="chat-box">
                     {responses.map((chat, index) => (
                         <div key={index} className="chat-item">
                             <div className="chat-you">
-                                <ReactMarkdown>{chat.message}</ReactMarkdown>
+                                <p><strong>You:</strong> {chat.message}</p>
                             </div>
-                            {chat.response !== null && (
-                                <div className="chat-bot">
-                                    <ReactMarkdown>{chat.response}</ReactMarkdown>
-                                </div>
-                            )}
+                            <div className="chat-bot">
+                                <p><strong>Bot:</strong> {chat.response}</p>
+                            </div>
                         </div>
                     ))}
                 </div>
                 <div className="input-box">
                     <div className="icon-container">
-                        <FiMic className="mic-icon" onClick={toggleMic} style={{ cursor: 'pointer', fontSize: '24px', color: listening ? 'red' : 'black' }} />
+                        <FiMic className="mic-icon"/>
                         <label htmlFor="fileInput">
                             <FiPlus style={{ margin: "5px" }} />
                         </label>
@@ -194,19 +158,6 @@ function UiPage() {
                         onKeyDown={(e) => e.key === "Enter" && handleSend()} 
                         placeholder="Type a message..." 
                     />
-                    <input 
-                        type="file" 
-                        id="fileInput" 
-                        style={{ display: "none" }} 
-                        onChange={handleFileChange}
-                    />
-                    {selectedFile && ( 
-                        <p>
-                            {selectedFile.name}
-                        </p>
-                    )}
-
-
                     <button onClick={handleSend}>
                         <FiSend />
                     </button>
@@ -215,21 +166,9 @@ function UiPage() {
             </div>
         </div>
     </>
-  );
-}
-
+  )
+ }
 export default UiPage;
-
-
-
-
-
-
-
-
-
-
-
 
 
 
