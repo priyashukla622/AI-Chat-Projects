@@ -30,6 +30,43 @@ function UiPage() {
         setUserInitial(<FiUser />);
       }
     };
+    // mic
+    const handleSend = () => {
+        if (!message.trim()) return; 
+
+        const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+
+        fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                contents: [{ parts: [{ text: message }] }]
+            }),
+        })
+        .then(res => res.json())
+        .then(data => {
+            const dataResponse = data.candidates?.[0]?.content?.parts?.[0]?.text || "No response from API";
+            let typingText = "";
+            let i = 0;
+
+            setResponses(prevResponses => [...prevResponses, { message, response: "" }]);
+            const interval = setInterval(() => {
+                if (i < dataResponse.length) {
+                    typingText += dataResponse[i];
+                    setResponses(prevResponses => {
+                        const updatedResponses = [...prevResponses];
+                        updatedResponses[updatedResponses.length - 1] = { message, response: typingText };
+                        return updatedResponses;
+                    });
+                    i++;
+                } else {
+                    clearInterval(interval); 
+                }
+            }, 30); 
+            setMessage(""); 
+        })
+        .catch(error => console.error("Error:", error));
+
 
     updateUserInitial();
     window.addEventListener("emailUpdated", updateUserInitial);
@@ -242,11 +279,4 @@ function UiPage() {
 }
 
 export default UiPage;
-
-
-
-
-
-
-
 
