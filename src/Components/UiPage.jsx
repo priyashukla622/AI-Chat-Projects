@@ -82,7 +82,6 @@ function UiPage() {
         setMessage("");  
         resetTranscript();
 
-
         fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCHW1OXkJKoP7DeA9SyP17Qkua9Synvkfs", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -123,7 +122,6 @@ function UiPage() {
             console.log("Selected fiel:", file.name);
         }
     }
-
     return (
     <>
         <div className={`chat-container ${darkMode ? "dark" : "light"}`}>
@@ -158,9 +156,9 @@ function UiPage() {
                         
                      </div> */}
 
-<div className="user-icon" onClick={() => navigate("/signUp")}>
-  {userInitial}
-</div>
+                <div className="user-icon" onClick={() => navigate("/signUp")}>
+                {userInitial}
+                </div>
                 </header>
                 <div className="chat-box">
                     {responses.map((chat, index) => (
