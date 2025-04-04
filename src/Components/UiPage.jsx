@@ -16,6 +16,7 @@ function UiPage() {
     const [showPopup, setShowPopup] = useState(false);
     const [showHelpOptions, setShowHelpOptions] = useState(false);
     const [userInitial, setUserInitial] = useState(<FiUser/>);
+    const [selectedFile, setSelectedFile] = useState(null);
 
     const navigate = useNavigate();  
    
@@ -115,6 +116,14 @@ function UiPage() {
         .catch(error => console.error("Error:", error));
     };
 
+    const handleFileChange = (event)=>{
+        const file = event.target.files[0];
+        if (file){
+            setSelectedFile(file)
+            console.log("Selected fiel:", file.name);
+        }
+    }
+
     return (
     <>
         <div className={`chat-container ${darkMode ? "dark" : "light"}`}>
@@ -125,11 +134,10 @@ function UiPage() {
                 <ul>
                     <li>
                       <a href="https://myactivity.google.com/product/gemini?utm_source=gemini" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", color: "inherit", display: "flex", alignItems: "center" }}><FiActivity style={{ marginRight: "20px" }} /> 
-                          Activity
+                        Activity
                       </a>
                     </li>
                     <li onClick={() => setShowPopup(true)}><FiSettings style={{ marginRight: "20px" }} /> Settings</li>
-
                     <li className="help-menu" onClick={() => setShowHelpOptions(!showHelpOptions)}>
                         
                       <FiHelpCircle style={{ marginRight: "20px" }} /> Help
@@ -186,6 +194,19 @@ function UiPage() {
                         onKeyDown={(e) => e.key === "Enter" && handleSend()} 
                         placeholder="Type a message..." 
                     />
+                    <input 
+                        type="file" 
+                        id="fileInput" 
+                        style={{ display: "none" }} 
+                        onChange={handleFileChange}
+                    />
+                    {selectedFile && ( 
+                        <p>
+                            {selectedFile.name}
+                        </p>
+                    )}
+
+
                     <button onClick={handleSend}>
                         <FiSend />
                     </button>

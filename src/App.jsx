@@ -1,9 +1,11 @@
 import React from "react";
-import UiPage from "./Components/UiPage";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import WelcomePage from "./Components/Welcome";
+import UiPage from "./Components/UiPage";
 import Login from "./Components/LogIn";
 import SignUp from "./Components/SignUp";
-// import Audio from "./Components/audio";
+
+
 
 
 function App() {
@@ -11,9 +13,9 @@ function App() {
     <>
    
     <Router>
-    <UiPage/>
-    {/* <Audio/> */}
       <Routes>
+      <Route path="/" element={<WelcomePage />} />  
+      <Route path="/ui" element={<UiPage />} />  
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
       </Routes>
