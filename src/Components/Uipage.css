@@ -1,31 +1,31 @@
 .chat-container {
-    display: flex;
-    height: 100vh;
-    width: 100%;
-    background: #f0f2f5;
-  }
-  .sidebar {
-    width: 280px;
-    background-color: #f5f5f5;
-    color:  #2c3e50;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    transition: 0.3s ease;
-  }
-  .sidebar button {
-    text-align: left;
-    background: none;
-    border: none;
-    color: #2c3e50;
-    font-size: 24px;
-    cursor: pointer;
-  }
-  .sidebar button:hover{
-    color: rgb(58, 58, 178);
-  }
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  background: #f0f2f5;
+}
+.sidebar {
+  width: 280px;
+  background-color: #f5f5f5;
+  color: #2c3e50;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  transition: 0.3s ease;
+}
+.sidebar button {
+  text-align: left;
+  background: none;
+  border: none;
+  color: #2c3e50;
+  font-size: 24px;
+  cursor: pointer;
+}
+.sidebar button:hover {
+  color: rgb(58, 58, 178);
+}
 .sidebar.collapsed {
-  width:30px; 
+  width: 30px;
 }
 .sidebar ul {
   font-weight: 600;
@@ -34,7 +34,6 @@
   margin-top: 200px;
   width: 200px;
   margin-left: -45px;
-
 }
 .sidebar ul li {
   margin: 40px;
@@ -50,7 +49,7 @@
   flex-direction: column;
   background: white;
 }
- .chat-header {
+.chat-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -63,7 +62,7 @@
   cursor: pointer;
 }
 
-.welcome-part{
+.welcome-part {
   padding: 20px;
   text-align: center;
   opacity: 0;
@@ -72,7 +71,7 @@
   animation: slideIn 2s forwards;
 }
 
-.welcome-part p{
+.welcome-part p {
   font-size: 20px;
 }
 
@@ -83,7 +82,6 @@
   }
 }
 
-
 .chat-box {
   flex: 1;
   overflow-y: auto;
@@ -91,7 +89,6 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-
 }
 .message {
   max-width: 80%;
@@ -99,31 +96,32 @@
   border-radius: 10px;
   font-size: 14px;
 }
-.chat-you{
+.chat-you {
   width: 40%;
   margin-left: 55%;
   margin-bottom: 10px;
   padding: 1px;
   border-radius: 5px;
 }
-.chat-bot{
+.chat-bot {
   width: 40%;
   margin-bottom: 10px;
   padding: 1px;
   border-radius: 5px;
 }
 
-.chat-you p, .chat-bot p{
+.chat-you p,
+.chat-bot p {
   margin-left: 20px;
 }
 
- .input-box {
+.input-box {
   display: flex;
   align-items: center;
   height: 20%;
   background: #eee;
   position: sticky;
-  bottom:10px;
+  bottom: 10px;
   margin-left: 30px;
   border-radius: 10px;
 }
@@ -144,7 +142,6 @@
   margin-right: 10px;
 }
 
-
 .input-box button {
   background: #007bff;
   color: white;
@@ -157,7 +154,6 @@
   cursor: pointer;
 }
 
-
 .mic-icon {
   font-size: 24px;
   cursor: pointer;
@@ -168,16 +164,10 @@
   margin-left: 20px;
 }
 
-/* .icon-container p{
-  text-align: center;
-  font-size: 20px;
-  margin-bottom: 300%;
-} */
- 
 .icon-container label{
   cursor: pointer;
   margin-top: 60px;
-  margin-left:-35px;
+  margin-left: -35px;
   font-size: 20px;
   border-radius: 50px;
   width: 30px;
@@ -191,49 +181,46 @@
   align-items: center;
 }
 
-/* Light Mode */
 .chat-container.light {
-  background-color: #ffffff; 
-  color: #000000; 
+  background-color: #ffffff;
+  color: #000000;
 }
 
 .help-options {
   position: absolute;
-  top: 35%; 
-  left: 15%; 
+  top: 35%;
+  left: 15%;
   background: white;
   border-radius: 5px;
-  min-width: 50px; 
-  max-width: 100px; 
-  height: 10%; 
-  display: none; 
+  min-width: 50px;
+  max-width: 100px;
+  height: 10%;
+  display: none;
   z-index: 10;
 }
 
 .help-options li {
-  display: block;   
+  display: block;
   text-align: left;
   list-style: none;
   text-decoration: none;
   padding: 10px;
-
 }
 
-.help-options li a{
+.help-options li a {
   text-decoration: none;
-  color:#2c3e50 ;
+  color: #2c3e50;
 }
 .help-options li:first-child {
   margin-top: 5px;
   margin-left: 25px;
-  
 }
 .help-options li:last-child {
-  margin-top: -25px; 
+  margin-top: -25px;
   margin-left: 25px;
 }
 
-.user-icon { 
+.user-icon {
   width: 35px;
   height: 35px;
   display: flex;
@@ -247,24 +234,24 @@
 }
 
 .help-menu .help-options {
-  display: block; 
+  display: block;
 }
 .chat-container.light {
-  background-color: #ffffff; 
-  color: #000000; 
+  background-color: #ffffff;
+  color: #000000;
 }
 
 .chat-container.dark {
-  background-color: #121212; 
+  background-color: #121212;
   color: #ffffff;
 }
 .chat-container.light .sidebar {
-  background-color: #f5f5f5; 
+  background-color: #f5f5f5;
   color: #2c3e50;
 }
 .chat-container.dark .sidebar {
-  background-color: #0a0a0a; 
-  color: #ffffff; 
+  background-color: #0a0a0a;
+  color: #ffffff;
 }
 .chat-container.dark .sidebar button {
   color: #ffffff;
@@ -274,25 +261,24 @@
 }
 
 .help-menu .help-options {
-  display: block; 
+  display: block;
 }
 .chat-container.light {
-  background-color: #ffffff; 
-  color: #000000; 
+  background-color: #ffffff;
+  color: #000000;
 }
 
 .chat-container.dark {
-  background-color: #121212; 
+  background-color: #121212;
   color: #ffffff;
-
 }
 .chat-container.light .sidebar {
-  background-color: #f5f5f5; 
+  background-color: #f5f5f5;
   color: #2c3e50;
 }
 .chat-container.dark .sidebar {
-  background-color: #0a0a0a; 
-  color: #ffffff; 
+  background-color: #0a0a0a;
+  color: #ffffff;
 }
 
 .help-options li:first-child {
@@ -300,8 +286,8 @@
   margin-left: 25px;
 }
 
-.setting-popup{
-  position:absolute;
+.setting-popup {
+  position: absolute;
   height: 19px;
   padding: 10px;
   border: 1px solid rgb(207, 207, 207);
@@ -315,22 +301,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: -30px; 
-  
+  gap: -30px;
 }
-.popup-content .close-btn, 
+.popup-content .close-btn,
 .popup-content .dark-btn {
   font-size: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px; 
+  width: 30px;
   height: 30px;
   cursor: pointer;
   margin-left: 10px;
   margin-top: -5px;
   color: black;
-  background-color:rgb(203, 203, 203);
+  background-color: rgb(203, 203, 203);
   border-radius: 50px;
   font-size: 15px;
 }
@@ -345,7 +330,7 @@
   color: black;
 }
 .chat-container.dark .input-box {
-  background-color: #222222; 
+  background-color: #222222;
 }
 .chat-container.dark .input-box input {
   background-color: #333333;
@@ -360,18 +345,18 @@
   color: #2c3e50;
 }
 .chat-container.dark .login-icon {
-  color: #ffffff; 
-}
-.chat-container.light h2 {
-  color: #2c3e50; 
-}
-.chat-container.dark h2{
   color: #ffffff;
 }
-.chat-you.light .you{
-  color: #2c3e50; 
+.chat-container.light h2 {
+  color: #2c3e50;
 }
-.chat-you.dark .you{
+.chat-container.dark h2 {
+  color: #ffffff;
+}
+.chat-you.light .you {
+  color: #2c3e50;
+}
+.chat-you.dark .you {
   color: #ffffff;
 }
 .chat-container.light .chat-you {
@@ -395,4 +380,3 @@
   background-color: #1e3a5f;
   color: #ffffff;
 }
-
