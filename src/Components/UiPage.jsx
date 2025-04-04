@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
-import {FiSend,FiMic,FiMenu,FiUser,FiActivity,FiSettings,FiLogOut,FiHelpCircle,FiPlus,
-} from "react-icons/fi";
+import {FiSend,FiMic,FiMenu,FiUser,FiActivity,FiSettings,FiLogOut,FiHelpCircle,FiPlus,} from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faToggleOn, faToggleOff } from "@fortawesome/free-solid-svg-icons";
@@ -67,7 +66,7 @@ function UiPage() {
         })
         .catch(error => console.error("Error:", error));
 
-
+      }
     updateUserInitial();
     window.addEventListener("emailUpdated", updateUserInitial);
 
@@ -174,8 +173,7 @@ function UiPage() {
                 href="https://myactivity.google.com/product/gemini?utm_source=gemini"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ textDecoration: "none", color: "inherit", display: "flex", alignItems: "center" }}
-              >
+                style={{ textDecoration: "none", color: "inherit", display: "flex", alignItems: "center" }}>
                 <FiActivity style={{ marginRight: "20px" }} /> Activity
               </a>
             </li>
@@ -277,6 +275,7 @@ function UiPage() {
     </>
   );
 }
+
 
 export default UiPage;
 
