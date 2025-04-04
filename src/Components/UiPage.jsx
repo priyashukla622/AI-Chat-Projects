@@ -53,8 +53,6 @@ import "./Uipage.css";
         alert("You have logged out successfully.");
         navigate("/login");
     };
-    
-
     // mic
     const handleSend = () => {
         if (!message.trim()) return; 
@@ -171,5 +169,3 @@ import "./Uipage.css";
   )
  }
 export default UiPage;
-
-
