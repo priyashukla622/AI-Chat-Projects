@@ -59,7 +59,7 @@ import "./Uipage.css";
     const handleSend = () => {
         if (!message.trim()) return; 
 
-        const API_KEY = import.meta.env.VITE_API_URL;
+        const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
         fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`, {
             method: "POST",
@@ -171,23 +171,5 @@ import "./Uipage.css";
   )
  }
 export default UiPage;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
