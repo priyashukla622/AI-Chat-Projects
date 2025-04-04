@@ -68,7 +68,6 @@ function UiPage() {
       alert("Microphone Started");
     }
   };
-
   const handleSend = () => {
     if (message.trim() === "") return;
 
@@ -164,7 +163,6 @@ function UiPage() {
           </li>
         </ul>
       </aside>
-
       <div className="chat-section">
         <header className="chat-header">
           <h2>Gemini AI</h2>
@@ -218,7 +216,6 @@ function UiPage() {
             onKeyDown={(e) => e.key === "Enter" && handleSend()}
             placeholder="Type a message..."
           />
-
           <input type="file" id="fileInput" style={{ display: "none" }} onChange={handleFileChange} />
           {selectedFile && <p>{selectedFile.name}</p>}
 
