@@ -4,9 +4,6 @@ import './Welcome.css'
 
 const WelcomePage = () => {
     const navigate = useNavigate()
-
-
-
     return (
       <div className="welcome-container">
         <h1 className="welcome-title">Meet 

@@ -154,7 +154,13 @@ function UiPage() {
             <div className="chat-section">
                 <header className="chat-header">
                     <h2>Gemini AI</h2>
-                    <div className="user-icon" onClick={() => navigate("/signUp")}> {userInitial} </div>
+                    {/* <div className="user-icon" onClick={() => navigate("/signUp")}> {userInitial}
+                        
+                     </div> */}
+
+<div className="user-icon" onClick={() => navigate("/signUp")}>
+  {userInitial}
+</div>
                 </header>
                 <div className="chat-box">
                     {responses.map((chat, index) => (
