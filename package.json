@@ -10,14 +10,19 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-regular-svg-icons": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@speechly/react-client": "^2.2.4",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-icons": "^5.5.0",
-    "react-router-dom": "^7.4.1"
+    "react-markdown": "^10.1.0",
+    "react-router-dom": "^7.4.1",
+    "react-speech-recognition": "^4.0.0",
+    "react-use-clipboard": "^1.0.9",
+    "speech": "^0.2.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
