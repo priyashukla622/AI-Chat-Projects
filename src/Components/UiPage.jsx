@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faToggleOn, faToggleOff } from "@fortawesome/free-solid-svg-icons";
 import "./Uipage.css";
 
+
  function UiPage() {
     const [collapsed, setCollapsed] = useState(false);
     const [message, setMessage] = useState("");
@@ -24,7 +25,7 @@ import "./Uipage.css";
             if (userEmail && userEmail.length > 0) {
                 setUserInitial(userEmail.charAt(0).toUpperCase());
             } else {
-                setUserInitial(<FiUser/>);
+                setUserInitial(<FiUser />);
             }
         };
         updateUserInitial(); 
@@ -53,8 +54,6 @@ import "./Uipage.css";
         alert("You have logged out successfully.");
         navigate("/login");
     };
-    
-
     // mic
     const handleSend = () => {
         if (!message.trim()) return; 
@@ -171,19 +170,6 @@ import "./Uipage.css";
   )
  }
 export default UiPage;
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

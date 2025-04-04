@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import "./Form.css";
 
+
 const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
