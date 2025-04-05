@@ -29,7 +29,7 @@ const handleSubmit = async (e) => {
           window.dispatchEvent(new Event("emailUpdated"));
 
           alert("Login Successful!");
-          navigate("/dashboard"); 
+          navigate("/ui"); 
       } else {
           alert(data.message || "Login Failed");
       }
