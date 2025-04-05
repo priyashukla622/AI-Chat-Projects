@@ -1,80 +1,56 @@
 import React, { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
-import { FiSend, FiMic, FiMenu, FiUser, FiActivity, FiSettings, FiLogOut, FiHelpCircle, FiPlus } from "react-icons/fi";
-import { useNavigate } from "react-router-dom"; 
+import {FiSend,FiMic,FiMenu,FiUser,FiActivity,FiSettings,FiLogOut,FiHelpCircle,FiPlus,
+} from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faToggleOn, faToggleOff } from "@fortawesome/free-solid-svg-icons";
-import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+
+// import { toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css"
+import SpeechRecognition, {useSpeechRecognition} from "react-speech-recognition";
 
 import "./Uipage.css";
 
 function UiPage() {
-    const [collapsed, setCollapsed] = useState(false);
-    const [message, setMessage] = useState("");
-    const [responses, setResponses] = useState([]);
-    const [darkMode, setDarkMode] = useState(false);
-    const [showPopup, setShowPopup] = useState(false);
-    const [showHelpOptions, setShowHelpOptions] = useState(false);
-    const [userInitial, setUserInitial] = useState(<FiUser/>);
-    const [selectedFile, setSelectedFile] = useState(null);
+  const [collapsed, setCollapsed] = useState(false);
+  const [message, setMessage] = useState("");
+  const [responses, setResponses] = useState([]);
+  const [darkMode, setDarkMode] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+  const [showHelpOptions, setShowHelpOptions] = useState(false);
+  const [userInitial, setUserInitial] = useState(<FiUser />);
+  const [selectedFile, setSelectedFile] = useState(null);
 
-    const navigate = useNavigate();  
-   
-    useEffect(() => {
-        const updateUserInitial = () => {
-            const userEmail = localStorage.getItem("email");
-            console.log("Fetched Email:", userEmail);
-            
-            if (userEmail && userEmail.length > 0) {
-                setUserInitial(userEmail.charAt(0).toUpperCase());
-            } else {
-                setUserInitial(<FiUser/>);
-            }
-        };
-        updateUserInitial(); 
-        window.addEventListener("emailUpdated", updateUserInitial);
+  const navigate = useNavigate();
+  const { transcript, listening, resetTranscript } = useSpeechRecognition();
 
-        return () => {
-            window.removeEventListener("emailUpdated", updateUserInitial);
-        };
-    }, []);
-
-    const toggleSidebar = () => setCollapsed(!collapsed);
-    const toggleMode = () => setDarkMode(!darkMode);
-
-    const handleLogout = () => {
-        localStorage.removeItem("token"); 
-        localStorage.removeItem("email"); 
-        window.dispatchEvent(new Event("emailUpdated"));
-    
-        alert("You have logged out successfully.");
-        navigate("/login");
+  useEffect(() => {
+    const updateUserInitial = () => {
+      const userEmail = localStorage.getItem("email");
+      if (userEmail && userEmail.length > 0) {
+        setUserInitial(userEmail.charAt(0).toUpperCase());
+      } else {
+        setUserInitial(<FiUser />);
+      }
     };
 
-    // Mic functionality
-    const [isMicOn, setIsMicOn] = useState(false);
-    const { transcript, listening, resetTranscript, browserSupportsSpeechRecognition } = useSpeechRecognition();
-    
-    useEffect(() => {
-        if (listening && transcript) {
-            setMessage(transcript);  
-        }
-    }, [transcript]);  
+    updateUserInitial();
+    window.addEventListener("emailUpdated", updateUserInitial);
 
-    const toggleMic = () => {
-        setIsMicOn(prevState => {
-            if (prevState) {
-                SpeechRecognition.stopListening();
-                alert("Microphone Stopped");
-            } else {
-                SpeechRecognition.startListening({ continuous: true, language: "en-IN" });
-                alert("Microphone Started");
-            }
-            return !prevState;
-        });
+    return () => {
+      window.removeEventListener("emailUpdated", updateUserInitial);
     };
+  }, []);
+
+
+  const toggleSidebar = () => {
+    setCollapsed(prev => !prev);
+  };
+
+  const toggleMode = () => {
+    setDarkMode(prev => !prev);
+  };
 
     const handleSend = () => {
         if (message.trim() === "") return;
@@ -124,6 +100,7 @@ function UiPage() {
             console.log("Selected fiel:", file.name);
         }
     }
+
     return (
     <>
         <div className={`chat-container ${darkMode ? "dark" : "light"}`}>
@@ -155,10 +132,6 @@ function UiPage() {
             <div className="chat-section">
                 <header className="chat-header">
                     <h2>Gemini AI</h2>
-                    {/* <div className="user-icon" onClick={handleLogout} onClick={() => navigate("/ui", { replace: true })}>
-                        {userInitial}
-                    </div> */}
-
                     <div className="user-icon" onClick={() => { handleLogout();
                         navigate("/ui", { replace: true })}}>{userInitial}
                     </div>
@@ -210,24 +183,22 @@ function UiPage() {
                     />
                     {selectedFile && ( 
                         <p>
-                            {selectedFile.name}
+                          {selectedFile.name}
                         </p>
                     )}
-
-
                     <button onClick={handleSend}>
                         <FiSend />
                     </button>
                     <input type="file" id="fileInput" style={{ display: "none" }} />
+
                 </div>
             </div>
-        </div>
+       </div>
     </>
-  );
+);
 }
 
 export default UiPage;
-
 
 
 

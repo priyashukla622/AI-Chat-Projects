@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import "./Form.css";
 
+
 const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -85,11 +86,8 @@ const SignUp = () => {
           Sign Up
         </button>
         <p className="signup-textLine">Already have an account? <span onClick={() => navigate("/login")} style={{ color: "blue", cursor: "pointer" }}>Login here</span></p>
-
       </form>
     </div>
-
-    
   );
 };
 export default SignUp;

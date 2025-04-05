@@ -29,7 +29,7 @@ const handleSubmit = async (e) => {
           window.dispatchEvent(new Event("emailUpdated"));
 
           alert("Login Successful!");
-          navigate("/ui"); 
+          navigate("/"); 
       } else {
           alert(data.message || "Login Failed");
       }
@@ -65,7 +65,7 @@ const handleSubmit = async (e) => {
             onClick={() => setShowPassword(!showPassword)}
           />
         </div>
-        <button type="submit" className="button" onClick={()=> navigate("/ui")}>
+        <button type="submit" className="button"  onClick={()=> navigate("/ui")}>
           Login
         </button>
         <p className="signup-textLine">if you are new user? <span onClick={() => navigate("/signup")} style={{ color: "blue", cursor: "pointer" }}>Sign up here</span></p>
