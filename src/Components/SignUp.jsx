@@ -30,7 +30,6 @@ const SignUp = () => {
           body: JSON.stringify(userData),
         }
       );
-
       const data = await response.json();
 
       if (response.ok) {
@@ -88,8 +87,6 @@ const SignUp = () => {
         <p className="signup-textLine">Already have an account? <span onClick={() => navigate("/login")} style={{ color: "blue", cursor: "pointer" }}>Login here</span></p>
 
       </form>
-      
-      
     </div>
 
     
