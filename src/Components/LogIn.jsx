@@ -30,7 +30,7 @@ const handleSubmit = async (e) => {
           window.dispatchEvent(new Event("emailUpdated"));
 
           alert("Login Successful!");
-          navigate("/"); 
+          navigate("/ui"); 
       } else {
           alert(data.message || "Login Failed");
       }

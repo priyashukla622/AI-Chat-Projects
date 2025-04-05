@@ -42,8 +42,19 @@ function UiPage() {
       window.removeEventListener("emailUpdated", updateUserInitial);
     };
   }, []);
+  useEffect(() => {
+    if (listening && transcript) {
+      setMessage(transcript);
+    }
+  }, [transcript, listening]);
 
-
+  const toggleMic = () => {
+    if (listening) {
+      SpeechRecognition.stopListening();
+    } else {
+      SpeechRecognition.startListening({ continuous: true });
+    }
+  };  
   const toggleSidebar = () => {
     setCollapsed(prev => !prev);
   };
@@ -51,7 +62,12 @@ function UiPage() {
   const toggleMode = () => {
     setDarkMode(prev => !prev);
   };
-
+  const handleLogout = () => {
+    localStorage.removeItem("email");
+    localStorage.removeItem("token");
+    alert("logout sucessfully");
+    console.log("User logged out");
+  };
     const handleSend = () => {
         if (message.trim() === "") return;
         console.log("Message Sent:", message);
@@ -133,9 +149,8 @@ function UiPage() {
                 <header className="chat-header">
                     <h2>Gemini AI</h2>
                     <div className="user-icon" onClick={() => { handleLogout();
-                        navigate("/ui", { replace: true })}}>{userInitial}
+                        navigate("/login", { replace: true })}}>{userInitial}
                     </div>
-                    
                 </header>
                 <div className="chat-box">
                     {responses.map((chat, index) => (
@@ -197,11 +212,7 @@ function UiPage() {
     </>
 );
 }
-
 export default UiPage;
-
-
-
 
 
 
