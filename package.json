@@ -21,6 +21,7 @@
     "react-markdown": "^10.1.0",
     "react-router-dom": "^7.4.1",
     "react-speech-recognition": "^4.0.0",
+    "react-toastify": "^11.0.5",
     "react-use-clipboard": "^1.0.9",
     "speech": "^0.2.1"
   },
