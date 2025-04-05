@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
-import {FiSend,FiMic,FiMenu,FiUser,FiActivity,FiSettings,FiLogOut,FiHelpCircle,FiPlus,
-} from "react-icons/fi";
+import {FiSend,FiMic,FiMenu,FiUser,FiActivity,FiSettings,FiLogOut,FiHelpCircle,FiPlus,} from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faToggleOn, faToggleOff } from "@fortawesome/free-solid-svg-icons";
@@ -33,7 +32,44 @@ function UiPage() {
         setUserInitial(<FiUser />);
       }
     };
+    // mic
+    const handleSend = () => {
+        if (!message.trim()) return; 
 
+        const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+
+        fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                contents: [{ parts: [{ text: message }] }]
+            }),
+        })
+        .then(res => res.json())
+        .then(data => {
+            const dataResponse = data.candidates?.[0]?.content?.parts?.[0]?.text || "No response from API";
+            let typingText = "";
+            let i = 0;
+
+            setResponses(prevResponses => [...prevResponses, { message, response: "" }]);
+            const interval = setInterval(() => {
+                if (i < dataResponse.length) {
+                    typingText += dataResponse[i];
+                    setResponses(prevResponses => {
+                        const updatedResponses = [...prevResponses];
+                        updatedResponses[updatedResponses.length - 1] = { message, response: typingText };
+                        return updatedResponses;
+                    });
+                    i++;
+                } else {
+                    clearInterval(interval); 
+                }
+            }, 30); 
+            setMessage(""); 
+        })
+        .catch(error => console.error("Error:", error));
+
+      }
     updateUserInitial();
     window.addEventListener("emailUpdated", updateUserInitial);
 
@@ -122,6 +158,42 @@ function UiPage() {
   };
 
   return (
+
+    <>
+      <div className={`chat-container ${darkMode ? "dark" : "light"}`}>
+        <aside className={`sidebar ${collapsed ? "collapsed" : ""}`}>
+          <button className="menu-btn" onClick={toggleSidebar}>
+            <FiMenu />
+          </button>
+          <ul>
+            <li>
+              <a
+                href="https://myactivity.google.com/product/gemini?utm_source=gemini"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ textDecoration: "none", color: "inherit", display: "flex", alignItems: "center" }}>
+                <FiActivity style={{ marginRight: "20px" }} /> Activity
+              </a>
+            </li>
+            <li onClick={() => setShowPopup(true)}>
+              <FiSettings style={{ marginRight: "20px" }} /> Settings
+            </li>
+            <li className="help-menu" onClick={() => setShowHelpOptions(!showHelpOptions)}>
+              <FiHelpCircle style={{ marginRight: "20px" }} /> Help
+              {showHelpOptions && (
+                <ul className="help-options">
+                  <li>
+                    <a href="https://gemini.google.com/updates" target="_blank" rel="noopener noreferrer">
+                      Update
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://gemini.google.com/faq" target="_blank" rel="noopener noreferrer">
+                      FAQ
+                    </a>
+                  </li>
+                </ul>
+
     <div className={`chat-container ${darkMode ? "dark" : "light"}`}>
       <aside className={`sidebar ${collapsed ? "collapsed" : ""}`}>
         <button className="menu-btn" onClick={toggleSidebar}>
@@ -181,6 +253,7 @@ function UiPage() {
                 <div className="chat-bot">
                   <ReactMarkdown>{chat.response}</ReactMarkdown>
                 </div>
+
               )}
             </div>
           ))}
@@ -228,20 +301,4 @@ function UiPage() {
   );
 }
 export default UiPage;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

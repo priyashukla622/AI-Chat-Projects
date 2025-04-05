@@ -379,4 +379,156 @@
 .chat-container.dark .chat-bot {
   background-color: #1e3a5f;
   color: #ffffff;
+} 
+
+
+/* media query */
+
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 100px;
+  }
+
+  .sidebar ul {
+    margin-top: 100px;
+    width: 180px;
+    margin-left: -30px;
+  }
+
+  .chat-you, .chat-bot {
+    width: 60%;
+  }
+}
+
+@media (max-width: 768px) {
+  .chat-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 10px;
+  }
+
+  .sidebar ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 10px 0 0 0;
+    padding: 0;
+    width: 100%;
+  }
+
+  .sidebar ul li {
+    margin: 10px 15px;
+    font-size: 16px;
+  }
+
+  .chat-you,
+  .chat-bot {
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .input-box {
+    margin: 10px;
+    /* flex-direction: column; */
+    padding: 10px;
+  }
+
+  .input-box input {
+    margin: 10px 0;
+    width: 100%;
+  }
+
+  .input-box button,
+  .mic-icon {
+    margin: 10px auto 0;
+  }
+
+  .welcome-part {
+    padding: 10px;
+  }
+
+  .welcome-part p {
+    font-size: 18px;
+  }
+
+  .chat-header {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .sidebar ul {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .sidebar ul li {
+    font-size: 14px;
+    margin: 8px 0;
+  }
+
+  .chat-header {
+    font-size: 16px;
+  }
+
+  .input-box input {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .input-box button {
+    font-size: 16px;
+    padding: 8px;
+  }
+
+  .mic-icon {
+    font-size: 18px;
+    padding: 6px;
+  }
+
+  .chat-you,
+  .chat-bot {
+    width: 90%;
+  }
+
+  .setting-popup {
+    margin-left: -100px;
+    margin-top: -200px;
+    width: 150px;
+  }
+
+  .popup-content {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .popup-content .close-btn,
+  .popup-content .dark-btn {
+    margin: 5px auto;
+  }
+
+  .help-options {
+    left: 5%;
+    top: 30%;
+    max-width: 90%;
+    height: auto;
+  }
+
+  .help-options li {
+    padding: 5px 10px;
+  }
 }
